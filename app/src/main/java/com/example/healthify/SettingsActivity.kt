@@ -7,12 +7,14 @@ import android.widget.AdapterView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.healthify.databinding.ActivitySettingsBinding
+import com.google.firebase.auth.FirebaseAuth
 import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var prefs: SharedPreferences
+    private lateinit var firestoreSync: FirestoreSync
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +22,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         prefs = getSharedPreferences("HealthifyPrefs", MODE_PRIVATE)
+        firestoreSync = FirestoreSync() // initialize properly
 
         // Load saved theme
         val darkMode = prefs.getBoolean("darkMode", false)
@@ -33,6 +36,7 @@ class SettingsActivity : AppCompatActivity() {
         // Handle Theme Toggle
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("darkMode", isChecked).apply()
+            firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid ,"darkMode", isChecked) // sync
             setThemeMode(isChecked)
         }
 
@@ -42,11 +46,11 @@ class SettingsActivity : AppCompatActivity() {
             if (goalText.isNotEmpty()) {
                 val goal = goalText.toInt()
                 prefs.edit().putInt("calorieGoal", goal).apply()
+                firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid ,"calorieGoal", goal) // sync
                 binding.tvSavedStatus.text = "Goal saved ✅"
             }
         }
 
-        // Handle Language Change
         // Handle Language Change
         binding.languageSpinner.setSelection(getSavedLanguageIndex())
         var isFirstSelection = true
@@ -65,10 +69,11 @@ class SettingsActivity : AppCompatActivity() {
 
                 val langCode = when (position) {
                     1 -> "zu" // Zulu
-                    2 -> "xh" // Xhosa
+                    2 -> "tn" // Setswana
                     else -> "en" // English
                 }
                 setLocale(langCode)
+                firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid,"language", langCode) // sync
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -94,6 +99,9 @@ class SettingsActivity : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
 
         prefs.edit().putString("language", langCode).apply()
+
+        @Suppress("DEPRECATION")
+        resources.updateConfiguration(config, resources.displayMetrics)
 
         recreate() // only when language really changes
     }
