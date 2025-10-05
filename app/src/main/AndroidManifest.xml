@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthify">
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true"
-            android:theme="@style/Theme.Healthify">
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
