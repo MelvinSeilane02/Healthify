@@ -35,7 +35,14 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    buildToolsVersion = "34.0.0"
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -47,7 +54,7 @@ dependencies {
 
     // 🔥 Firebase libraries
     implementation(libs.firebase.firestore)
-    implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.firebase:firebase-auth:24.0.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
