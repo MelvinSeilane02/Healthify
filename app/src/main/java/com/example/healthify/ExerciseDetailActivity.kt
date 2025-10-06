@@ -1,9 +1,9 @@
 package com.example.healthify
 
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.healthify.R
 
 class ExerciseDetailActivity : AppCompatActivity() {
 
@@ -11,19 +11,26 @@ class ExerciseDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_detail)
 
-        // Get UI references
+        // Bind UI views
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
         val nameText = findViewById<TextView>(R.id.exerciseName)
         val typeText = findViewById<TextView>(R.id.exerciseType)
         val difficultyText = findViewById<TextView>(R.id.exerciseDifficulty)
         val instructionText = findViewById<TextView>(R.id.exerciseInstructions)
 
-        // Get passed data from Intent
-        val name = intent.getStringExtra("exercise_name") ?: "Unknown Exercise"
-        val type = intent.getStringExtra("type") ?: "N/A"
-        val difficulty = intent.getStringExtra("difficulty") ?: "N/A"
-        val instructions = intent.getStringExtra("instructions") ?: "No instructions available."
+        // Handle Back button
+        btnBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
-        // Display the data
+        // Retrieve exercise details from Intent
+        val name = intent.getStringExtra("exercise_name") ?: "Unknown Exercise"
+        val type = intent.getStringExtra("type")?.ifBlank { "Not specified" } ?: "Not specified"
+        val difficulty = intent.getStringExtra("difficulty")?.ifBlank { "N/A" } ?: "N/A"
+        val instructions = intent.getStringExtra("instructions")?.ifBlank { "No instructions available." }
+            ?: "No instructions available."
+
+        // Display data
         nameText.text = name
         typeText.text = "Type: $type"
         difficultyText.text = "Difficulty: $difficulty"

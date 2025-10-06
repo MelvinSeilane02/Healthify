@@ -22,24 +22,35 @@
             android:layout_height="wrap_content"
             android:paddingBottom="16dp" />
 
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="206dp"
+            android:src="@drawable/healthify_logo"
+            app:layout_constraintStart_toStartOf="@id/nameField" />
+
         <EditText
             android:id="@+id/nameField"
             android:hint="Full Name"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:background="#7CA2DE"
+            android:backgroundTint="#D8E7F2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:padding="12dp"
-            android:backgroundTint="@color/black"
             android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/emailField"
             android:hint="Email"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:background="#7CA2DE"
+            android:backgroundTint="#D8E7F2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:padding="12dp"
-            android:backgroundTint="@color/black"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -47,9 +58,11 @@
             android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:background="#7CA2DE"
+            android:backgroundTint="#D8E7F2"
             android:padding="12dp"
-            android:backgroundTint="@color/black"
             android:inputType="textPassword" />
 
         <Button
