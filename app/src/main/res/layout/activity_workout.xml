@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/workoutLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".WorkoutActivity">
+
+    <!-- Page Title -->
+    <TextView
+        android:id="@+id/tvWorkoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Your Exercises"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:paddingBottom="12dp" />
+
+    <!-- Button to Load Exercises -->
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Load Exercises"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/blue"
+        android:textColor="@android:color/white"
+        android:padding="10dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Scrollable List of Exercises -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/workoutContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
