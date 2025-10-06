@@ -64,6 +64,12 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
+    //fitness
+    implementation("com.google.android.gms:play-services-fitness:21.1.0")
+    implementation("com.google.android.gms:play-services-auth:21.1.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.picasso:picasso:2.8")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

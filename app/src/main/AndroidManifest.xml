@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -10,31 +12,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Healthify">
-
-        <!-- Dashboard page after login -->
+        <activity
+            android:name=".ExerciseListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ExerciseDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WorkoutActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Healthify" /> <!-- Dashboard page after login -->
         <activity
             android:name=".Dashboard"
-            android:exported="true" />
-
-        <!-- Login and Register screens -->
+            android:exported="true" /> <!-- Login and Register screens -->
         <activity
             android:name=".Login"
             android:exported="true" />
         <activity
             android:name=".Register"
-            android:exported="true" />
-
-        <!-- First screen when app launches -->
+            android:exported="true" /> <!-- First screen when app launches -->
         <activity
             android:name=".Welcome"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Optional: Settings page -->
+        </activity> <!-- Optional: Settings page -->
         <activity
             android:name=".SettingsActivity"
             android:exported="true"

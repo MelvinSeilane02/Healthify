@@ -253,10 +253,13 @@
             android:src="@drawable/ic_home_blue" />
 
         <ImageView
+            android:id="@+id/fitness"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            android:onClick="gotoWorkout"
             android:src="@drawable/ic_barbell"
-            android:layout_marginStart="40dp" />
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <ImageView
             android:layout_width="30dp"
