@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:id="@+id/main"
+    tools:context=".Dashboard">
+
+    <!-- Top Title -->
+    <TextView
+        android:id="@+id/txtThisWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This Week"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="24dp" />
+
+    <!-- Blue Box with Progress -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/progressCard"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#E3F2FD"
+        app:layout_constraintTop_toBottomOf="@id/txtThisWeek"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtTotalTraining"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Training: 3:00"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/txtGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Goal: 2:15"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/txtTotalTraining"
+                app:layout_constraintStart_toStartOf="@id/txtTotalTraining"
+                android:layout_marginTop="6dp" />
+
+            <!-- Circular Progress -->
+            <ProgressBar
+                android:id="@+id/progressCircle"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:max="100"
+                android:progress="75"
+                android:indeterminate="false"
+                android:rotation="-90"
+                android:progressDrawable="@drawable/circular_progress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="20dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Weather Info -->
+    <TextView
+        android:id="@+id/txtWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="☀️ Pretoria  21° | Partly Cloudy"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/progressCard"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Workout Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/workoutCard"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="#E3F2FD"
+        app:layout_constraintTop_toBottomOf="@id/txtWeather"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txtWorkoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fullbody Workout"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:textColor="#000000"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/txtWorkoutDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11 Exercises | 32 mins"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                app:layout_constraintTop_toBottomOf="@id/txtWorkoutTitle"
+                app:layout_constraintStart_toStartOf="@id/txtWorkoutTitle" />
+
+            <ImageView
+                android:id="@+id/imgWorkout"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_workout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="20dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Today Target Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/targetCard"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="#F5F5F5"
+        app:layout_constraintTop_toBottomOf="@id/workoutCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_water" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5L"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Water Intake"
+                    android:textSize="14sp"
+                    android:textColor="#555555" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_steps" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="8000"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Foot Steps"
+                    android:textSize="14sp"
+                    android:textColor="#555555" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Meal Logging Button -->
+    <Button
+        android:id="@+id/btnMealLogging"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Meal Logging Screen"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#0D47A1"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/targetCard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp" />
+
+    <!-- Bottom Navigation Icons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="8dp"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_home_blue" />
+
+        <ImageView
+            android:id="@+id/fitness"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="40dp"
+            android:onClick="gotoWorkout"
+            android:src="@drawable/ic_barbell"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_cart"
+            android:layout_marginStart="40dp" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_info"
+            android:layout_marginStart="40dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
