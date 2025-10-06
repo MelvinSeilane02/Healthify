@@ -1,6 +1,7 @@
 package com.example.healthify
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
@@ -19,14 +20,17 @@ class ExerciseListActivity : AppCompatActivity() {
 
         container = findViewById(R.id.exerciseContainer)
         val target = intent.getStringExtra("target")
+        Log.d("ExerciseListActivity", "Received target: $target")
         if (target != null) {
             loadExercises(target)
         }
+
+
     }
 
     private fun loadExercises(target: String) {
         val request = Request.Builder()
-            .url("https://exercisedb.p.rapidapi.com/exercises/target/$target")
+            .url("https://exercisedb.p.rapidapi.com/exercises/target/%7Btarget%7D")
             .get()
             .addHeader("x-rapidapi-key", "3f7e508fadmsh959f9d383b10369p11ec0bjsnf6434848fca6")
             .addHeader("x-rapidapi-host", "exercisedb.p.rapidapi.com")
@@ -42,6 +46,15 @@ class ExerciseListActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val json = response.body?.string()
                 if (json != null) {
+                    if (json.trim().startsWith("{")) {
+                        // This means it's an error object, not an array
+                        Log.e("ExerciseListActivity", "Error response: $json")
+                        runOnUiThread {
+                            Toast.makeText(this@ExerciseListActivity, "Invalid target or API error", Toast.LENGTH_SHORT).show()
+                        }
+                        return
+                    }
+
                     val exercises = JSONArray(json)
                     runOnUiThread {
                         displayExercises(exercises)

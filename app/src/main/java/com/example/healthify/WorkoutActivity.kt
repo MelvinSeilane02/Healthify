@@ -2,7 +2,10 @@ package com.example.healthify
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.*
+import android.util.Log
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import okhttp3.*
 import org.json.JSONArray
@@ -22,49 +25,74 @@ class WorkoutActivity : AppCompatActivity() {
         container = findViewById(R.id.workoutContainer)
 
         btnLoad.setOnClickListener {
-            loadTargets()
+            loadExercises("abs")
+            loadExercises("chest")
+            loadExercises("triceps")
+
         }
     }
 
-    private fun loadTargets() {
+    private fun loadExercises(muscle: String) {
+        val url = "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=$muscle"
+
         val request = Request.Builder()
-            .url("https://exercisedb.p.rapidapi.com/exercises/targetList")
+            .url(url)
             .get()
             .addHeader("x-rapidapi-key", "3f7e508fadmsh959f9d383b10369p11ec0bjsnf6434848fca6")
-            .addHeader("x-rapidapi-host", "exercisedb.p.rapidapi.com")
+            .addHeader("x-rapidapi-host", "exercises-by-api-ninjas.p.rapidapi.com")
             .build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 runOnUiThread {
-                    Toast.makeText(this@WorkoutActivity, "Failed to fetch data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WorkoutActivity, "Failed to fetch exercises", Toast.LENGTH_SHORT).show()
+                    Log.e("WorkoutActivity", "API call failed", e)
                 }
             }
 
             override fun onResponse(call: Call, response: Response) {
                 val json = response.body?.string()
-                if (json != null) {
-                    val targets = JSONArray(json)
+                if (!response.isSuccessful || json.isNullOrEmpty()) {
                     runOnUiThread {
-                        displayTargets(targets)
+                        Toast.makeText(this@WorkoutActivity, "No exercises found", Toast.LENGTH_SHORT).show()
+                    }
+                    return
+                }
+
+                try {
+                    val exercises = JSONArray(json)
+                    runOnUiThread {
+                        displayExercises(exercises)
+                    }
+                } catch (e: Exception) {
+                    Log.e("WorkoutActivity", "Invalid JSON format: $json", e)
+                    runOnUiThread {
+                        Toast.makeText(this@WorkoutActivity, "Invalid response format", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
         })
     }
 
-    private fun displayTargets(targets: JSONArray) {
+    private fun displayExercises(exercises: JSONArray) {
         container.removeAllViews()
 
-        for (i in 0 until targets.length()) {
-            val target = targets.getString(i)
+        for (i in 0 until exercises.length()) {
+            val obj = exercises.getJSONObject(i)
+            val name = obj.getString("name")
+            val type = obj.optString("type")
+            val difficulty = obj.optString("difficulty")
+
             val btn = Button(this).apply {
-                text = target.replaceFirstChar { it.uppercase() }
+                text = "$name\n($difficulty, $type)"
                 setBackgroundColor(getColor(R.color.primaryBlue))
                 setTextColor(getColor(android.R.color.white))
                 setOnClickListener {
-                    val intent = Intent(this@WorkoutActivity, ExerciseListActivity::class.java)
-                    intent.putExtra("target", target)
+                    val intent = Intent(this@WorkoutActivity, ExerciseDetailActivity::class.java)
+                    intent.putExtra("exercise_name", name)
+                    intent.putExtra("type", type)
+                    intent.putExtra("difficulty", difficulty)
+                    intent.putExtra("instructions", obj.optString("instructions"))
                     startActivity(intent)
                 }
             }

@@ -1,10 +1,8 @@
 package com.example.healthify
 
 import android.os.Bundle
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.example.healthify.R
 
 class ExerciseDetailActivity : AppCompatActivity() {
@@ -13,28 +11,22 @@ class ExerciseDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_detail)
 
-        // Get data passed from WorkoutActivity
-        val name = intent.getStringExtra("name")
-        val gifUrl = intent.getStringExtra("gifUrl")
-        val bodyPart = intent.getStringExtra("bodyPart")
-        val target = intent.getStringExtra("target")
-        val equipment = intent.getStringExtra("equipment")
+        // Get UI references
+        val nameText = findViewById<TextView>(R.id.exerciseName)
+        val typeText = findViewById<TextView>(R.id.exerciseType)
+        val difficultyText = findViewById<TextView>(R.id.exerciseDifficulty)
+        val instructionText = findViewById<TextView>(R.id.exerciseInstructions)
 
-        // Connect XML views
-        val imgExercise = findViewById<ImageView>(R.id.imgExercise)
-        val txtExerciseName = findViewById<TextView>(R.id.txtExerciseName)
-        val txtBodyPart = findViewById<TextView>(R.id.txtBodyPart)
-        val txtTarget = findViewById<TextView>(R.id.txtTarget)
-        val txtEquipment = findViewById<TextView>(R.id.txtEquipment)
+        // Get passed data from Intent
+        val name = intent.getStringExtra("exercise_name") ?: "Unknown Exercise"
+        val type = intent.getStringExtra("type") ?: "N/A"
+        val difficulty = intent.getStringExtra("difficulty") ?: "N/A"
+        val instructions = intent.getStringExtra("instructions") ?: "No instructions available."
 
-        // Set text and image
-        txtExerciseName.text = name?.replaceFirstChar { it.uppercase() } ?: "Exercise"
-        txtBodyPart.text = "Body Part: ${bodyPart ?: "N/A"}"
-        txtTarget.text = "Target: ${target ?: "N/A"}"
-        txtEquipment.text = "Equipment: ${equipment ?: "N/A"}"
-
-        Glide.with(this)
-            .load(gifUrl)
-            .into(imgExercise)
+        // Display the data
+        nameText.text = name
+        typeText.text = "Type: $type"
+        difficultyText.text = "Difficulty: $difficulty"
+        instructionText.text = instructions
     }
 }
