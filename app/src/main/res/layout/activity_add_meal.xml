@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".mealplanner.AddMealActivity">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🍽️ Add Meal"
+        android:textColor="@android:color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="20dp"
+        tools:ignore="HardcodedText" />
+
+    <!-- Food Input -->
+    <EditText
+        android:id="@+id/etFoodInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter food (e.g. 1 cup rice)"
+        android:backgroundTint="@color/black"
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="#888"
+        android:inputType="textCapWords"
+        android:layout_marginBottom="12dp"
+        tools:ignore="HardcodedText" />
+
+    <!-- Search Button -->
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:backgroundTint="@color/blue"
+        android:textColor="@android:color/white"
+        tools:ignore="HardcodedText" />
+
+    <!-- Result Section -->
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Results will appear here"
+        android:textColor="@android:color/black"
+        android:paddingTop="20dp"
+        android:textSize="16sp"
+        android:lineSpacingExtra="4dp"
+        tools:ignore="HardcodedText" />
+
+    <!-- ✅ Meal Category Spinner -->
+    <Spinner
+        android:id="@+id/spinnerMealCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:entries="@array/meal_categories" />
+
+    <!-- Add Meal Button (Initially Hidden) -->
+    <Button
+        android:id="@+id/btnAddMeal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/black"
+        android:text="Add Meal"
+        android:textColor="@android:color/white"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>

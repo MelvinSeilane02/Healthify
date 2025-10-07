@@ -1,6 +1,5 @@
-package com.example.healthify.utils
+package com.example.healthify.network
 
-import com.example.healthify.api.NutritionixApiService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

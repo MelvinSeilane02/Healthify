@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,41 +20,50 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            tools:ignore="HardcodedText" />
+            android:paddingBottom="16dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="206dp"
+            android:src="@drawable/healthify_logo"
+            app:layout_constraintStart_toStartOf="@id/nameField" />
 
         <EditText
             android:id="@+id/nameField"
             android:hint="Full Name"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:background="#7CA2DE"
+            android:backgroundTint="#D8E7F2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:padding="12dp"
-            android:backgroundTint="@color/black"
-            android:inputType="textPersonName"
-            tools:ignore="HardcodedText" />
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/emailField"
             android:hint="Email"
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:background="#7CA2DE"
+            android:backgroundTint="#D8E7F2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:padding="12dp"
-            android:backgroundTint="@color/black"
-            android:inputType="textEmailAddress"
-            tools:ignore="HardcodedText" />
+            android:inputType="textEmailAddress" />
 
         <EditText
             android:id="@+id/passwordField"
             android:hint="Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_margin="20dp"
+            android:textColor="@color/black"
+            android:background="#7CA2DE"
+            android:backgroundTint="#D8E7F2"
             android:padding="12dp"
-            android:backgroundTint="@color/black"
-            android:inputType="textPassword"
-            tools:ignore="HardcodedText" />
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/registerButton"
@@ -64,8 +72,7 @@
             android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/loginRedirect"
@@ -74,8 +81,7 @@
             android:layout_gravity="center"
             android:paddingTop="12dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 </ScrollView>

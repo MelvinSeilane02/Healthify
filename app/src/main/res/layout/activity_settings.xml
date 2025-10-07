@@ -13,6 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
+        <include layout="@layout/toolbar_layout" />
+
         <!-- Header -->
         <TextView
             android:text="Settings"

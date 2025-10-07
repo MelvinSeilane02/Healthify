@@ -1,19 +1,17 @@
-package com.example.healthify.api
+package com.example.healthify.network
 
-import com.example.healthify.BuildConfig
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 
-// Request model
+// Request models
 data class NutritionRequest(
     val query: String // e.g. "1 cup rice"
 )
 
-// Response model (simplified)
+// Response models (simplified)
 data class FoodResponse(
     val foods: List<FoodItem>
 )

@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import retrofit2.*
 import androidx.activity.enableEdgeToEdge
 import com.example.healthify.WorkoutActivity
+import com.example.healthify.mealplanner.AddMealActivity
+import com.example.healthify.mealplanner.MealPlannerActivity
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -63,7 +65,7 @@ class Dashboard : AppCompatActivity() {
 
     /** --- WEATHER API SETUP --- **/
     interface WeatherService {
-        @GET("data/2.5/weather")
+        @GET("repository/2.5/weather")
         fun getWeather(
             @Query("q") city: String,
             @Query("appid") apiKey: String,
@@ -117,6 +119,16 @@ class Dashboard : AppCompatActivity() {
 
     fun gotoWorkout(view: View) {
         startActivity(Intent(this, WorkoutActivity::class.java))
+        //finish()
+    }
+
+    fun gotoSettings(view: View) {
+        startActivity(Intent(this, SettingsActivity::class.java))
         finish()
+    }
+
+    fun gotoMealPlan(view: View) {
+        startActivity(Intent(this, MealPlannerActivity::class.java))
+        //finish()
     }
 }

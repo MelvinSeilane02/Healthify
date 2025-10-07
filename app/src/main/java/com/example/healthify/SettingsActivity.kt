@@ -1,6 +1,7 @@
 package com.example.healthify
 
 import android.content.Context
+import com.example.healthify.PrefsManager
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,8 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var prefs: SharedPreferences
+    private lateinit var prefsManager: PrefsManager
+
     private lateinit var firestoreSync: FirestoreSync
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         prefs = getSharedPreferences("HealthifyPrefs", MODE_PRIVATE)
+        prefsManager = PrefsManager(this)
         firestoreSync = FirestoreSync() // initialize properly
 
         // Load saved theme
@@ -42,25 +46,28 @@ class SettingsActivity : AppCompatActivity() {
 
 
         // Handle Theme Toggle
+        binding.switchTheme.isChecked = prefsManager.isDarkMode()
         binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean("darkMode", isChecked).apply()
-            firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid ,"darkMode", isChecked) // sync
+            prefsManager.saveTheme(isChecked)
+            firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid, "darkMode", isChecked)
             setThemeMode(isChecked)
         }
 
         // Handle Calorie Goal Save
+        binding.etCalorieGoal.setText(prefsManager.getCalorieGoal().toString())
         binding.btnSaveGoal.setOnClickListener {
             val goalText = binding.etCalorieGoal.text.toString()
             if (goalText.isNotEmpty()) {
                 val goal = goalText.toInt()
-                prefs.edit().putInt("calorieGoal", goal).apply()
-                firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid ,"calorieGoal", goal) // sync
+                prefsManager.saveCalorieGoal(goal)
+                firestoreSync.saveSetting(FirebaseAuth.getInstance().currentUser?.uid, "calorieGoal", goal)
                 binding.tvSavedStatus.text = "Goal saved ✅"
             }
         }
 
         // Handle Language Change
         binding.languageSpinner.setSelection(getSavedLanguageIndex())
+        
         var isFirstSelection = true
 
         binding.languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -87,6 +94,12 @@ class SettingsActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
+        setSupportActionBar(findViewById(R.id.appToolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        findViewById<androidx.appcompat.widget.Toolbar>(R.id.appToolbar)
+            .setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+
+
     }
 
     private fun setThemeMode(dark: Boolean) {
@@ -95,12 +108,13 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun setLocale(langCode: String) {
-        val currentLang = prefs.getString("language", "en")
+        val currentLang = prefsManager.getLanguage()
         if (currentLang == langCode) return
 
-        prefs.edit().putString("language", langCode).apply()
-        recreate() // Activity will reload with correct locale
+        prefsManager.saveLanguage(langCode)
+        recreate()
     }
+
 
     private fun getSavedLanguageIndex(): Int {
         return when (prefs.getString("language", "en")) {

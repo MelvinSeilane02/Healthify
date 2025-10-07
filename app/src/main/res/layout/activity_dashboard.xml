@@ -262,10 +262,12 @@
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <ImageView
+            android:id="@+id/mealPlanBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_cart"
-            android:layout_marginStart="40dp" />
+            android:onClick="gotoMealPlan"
+            android:layout_marginStart="40dp"
+            android:src="@drawable/ic_cart" />
 
         <ImageView
             android:layout_width="30dp"
@@ -273,5 +275,16 @@
             android:src="@drawable/ic_info"
             android:layout_marginStart="40dp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/settBtn"
+        android:layout_width="50dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:onClick="gotoSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings_100dp_black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

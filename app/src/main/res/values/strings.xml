@@ -6,4 +6,10 @@
         <item>Setswana</item>
         <item>Xhosa</item>
     </string-array>
+
+    <string-array name="meal_categories">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Supper</item>
+    </string-array>
 </resources>
