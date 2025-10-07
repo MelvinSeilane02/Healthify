@@ -1,7 +1,7 @@
 // 'findProperty' returns 'Any?', so we cast it to 'String?'.
 /**********CHANGE THIS API KEY TO YOUR OWN*************/
-val nutritionixAppId = "f5d73b4b"
-val nutritionixAppKey = "031e9e6bc34302c050c343c01cea5ea7"
+val nutritionixAppId = "fd6a36c3"
+val nutritionixAppKey = "0ac4c30b12a16d058670983365d966b0"
 /********************************************************/
 
 // Add this check. If either key is null (not found), the build will fail with a clear error message.
@@ -112,6 +112,7 @@ dependencies {
 // Image loading (for weather icons)
     implementation("com.github.bumptech.glide:glide:4.15.1")
     implementation(libs.androidx.media3.common.ktx)
+    implementation(libs.junit.junit)
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 
     //fitness
@@ -125,9 +126,15 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:3.0.0")
     implementation("com.squareup.retrofit2:converter-gson:3.0.0")
     implementation("com.squareup.okhttp3:logging-interceptor:5.1.0")
-
     implementation("com.squareup.okhttp3:okhttp:5.1.0")
     implementation("com.squareup.picasso:picasso:2.8")
+
+    // --- Unit Testing ---
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:5.11.0")
+   // testImplementation("org.mockito:mockito-inline:5.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
