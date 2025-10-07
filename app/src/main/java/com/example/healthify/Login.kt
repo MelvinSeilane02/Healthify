@@ -8,14 +8,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.healthify.methods.BaseActivity
+import com.example.healthify.utils.LocaleHelper
 import com.google.firebase.auth.FirebaseAuth
 
-class Login : AppCompatActivity() {
+class Login : BaseActivity() {
 
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Apply saved language at app start
+        /*val prefs = PrefsManager(applicationContext)
+        val lang = prefs.getLanguage()
+        LocaleHelper.applyLocale(applicationContext, lang)*/
+
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
 

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Welcome page-->
+    <string name="app_name">Healthify</string>
+    <string name="welcome_text">O amogetswe mo Healthify</string>
+    <string name="subtitle_text">Lekanya dijo le boitekanelo ka bonolo.</string>
+    <string name="get_started">Simolola</string>
+    <!--Settings-->
+    <string name="settings">Dikgetho</string>
+    <string name="language">Puo</string>
+    <string name="language_prompt">Kgetha puo</string>
+    <string name="dark_mode">Mokgwa o Motsididi</string>
+    <string name="daily_calorie_goal">Pelo ya Dikalori tsa Tsatsi</string>
+    <string name="enter_calorie_target">Tsenya palo ya dikalori</string>
+    <string name="save_goal">Boloka Maikaelelo</string>
+    <string name="goal_saved">Maikaelelo a bolokilwe ✅</string>
+
+    <string name="add_meal">Tsamaisa Kgaolo</string>
+    <string name="search">Batla</string>
+    <string name="results_will_appear">Dipoelo di tla bonagala fa</string>
+    <string name="add_meal_header">🍽️ Tsenya dijo</string>
+    <string name="food_input_hint">Tsenya dijo (sekai: kopi e le nngwe ya raese)</string>
+    <string name="search_button">Batla</string>
+    <string name="result_placeholder">Dipholo di tla bonala fa</string>
+    <string name="add_meal_button">Tsenya dijo</string>
+    <string name="toolbar_title_meal_planner">Morulaganyi wa Dijo</string>
+    <string name="daily_goal_label">Kitsiso ya Letsatsi: %1$d kcal</string>
+    <string name="consumed_label">Tse di jewweng: %1$d kcal</string>
+    <string name="meal_deleted">%1$s e phimotswe</string>
+    <string name="meal_delete_failed">Go paletswe go phimola dijo</string>
+    <string name="user_not_logged_in">Modirisi ga a tsene</string>
+
+    <!--Dashboard-->
+    <string name="this_week">Beke e</string>
+
+    <string name="total_training_template">Tiro ya Thuto ka Kakaretso: %1$s</string>
+    <string name="goal_template">Maikaelelo: %1$s</string>
+
+    <string name="weather_template">%1$s  %2$s | %3$s</string>
+
+    <string name="fullbody_workout">Thuto ya Mmogo ya Mmele</string>
+    <string name="workout_details_template">%1$d Ditiro | %2$s mets</string>
+    <string name="workout_image_cd">Setshwantsho sa tiro</string>
+
+    <string name="water_intake">Pego ya Metsi</string>
+    <string name="foot_steps">Dikgato</string>
+    <string name="water_icon_cd">Setshwantsho sa metsi</string>
+    <string name="steps_icon_cd">Setshwantsho sa dikgato</string>
+
+    <string name="home_cd">Legae</string>
+    <string name="fitness_cd">Boitlhokomelo</string>
+    <string name="mealplan_cd">Morulaganyi wa Dijo</string>
+    <string name="info_cd">Tshedimosetso</string>
+    <string name="settings_cd">Dikgokagano</string>
+
+    <string name="meal_name">Leina la dijo</string>
+    <string name="sample_calories">200 dikhalori</string>
+    <string name="sample_macros">P: 20g | C: 30g | F: 10g</string>
+    <string name="delete_meal">Phimola dijo</string>
+
+    <!--Login-->
+    <string name="welcome_back">O amogetswe gape</string>
+    <string name="email_login">Imeile</string>
+    <string name="password_login">Khunololamoraba</string>
+    <string name="login">Tsena</string>
+    <string name="register_redirect">Ga o na akhaonto? Ikwadise</string>
+
+    <!--Register-->
+    <string name="create_account">Bula Akhaonto</string>
+    <string name="full_name">Leina le le tletseng</string>
+    <string name="email">Imeile</string>
+    <string name="password">Khunololamoraba</string>
+    <string name="register">Ikwadise</string>
+    <string name="already_have_account">O setse o na le akhaonto? Tsena</string>
+</resources>

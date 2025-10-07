@@ -6,23 +6,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.example.healthify.BuildConfig
 import com.example.healthify.R
-import com.example.healthify.repository.MealRepository
 import com.example.healthify.databinding.ActivityAddMealBinding
+import com.example.healthify.methods.BaseActivity
 import com.example.healthify.models.Food
 import com.example.healthify.models.Meal
 import com.example.healthify.network.FoodResponse
 import com.example.healthify.network.NutritionRequest
 import com.example.healthify.network.RetrofitClient
+import com.example.healthify.repository.MealRepository
 import com.example.healthify.utils.toFood
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddMealActivity : AppCompatActivity() {
+class AddMealActivity : BaseActivity() {
 
     private lateinit var binding: ActivityAddMealBinding
     private lateinit var mealRepository: MealRepository
@@ -76,11 +76,13 @@ class AddMealActivity : AppCompatActivity() {
                     category = selectedCategory // ✅ store category
                 )
 
-                mealRepository.addMeal(meal) { success ->
+                mealRepository.addMeal(meal) { success, exception ->
                     if (success) {
                         Toast.makeText(this, "${meal.name} added!", Toast.LENGTH_SHORT).show()
                         finish()
                     } else {
+                        // better logging to know why
+                        Log.e(TAG, "Failed to save meal. success=false", exception)
                         Toast.makeText(this, "Failed to save meal!", Toast.LENGTH_SHORT).show()
                     }
                 }

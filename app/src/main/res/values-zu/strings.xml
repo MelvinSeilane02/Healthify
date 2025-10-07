@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Welcome page-->
+    <string name="app_name">Healthify</string>
+    <string name="welcome_text">Siyakwamukela ku-Healthify</string>
+    <string name="subtitle_text">Linganisela ukudla kwakho nokuzivocavoca kalula.</string>
+    <string name="get_started">Qala</string>
+    <!--Settings-->
+    <string name="settings">Izilungiselelo</string>
+    <string name="language">Ulimi</string>
+    <string name="language_prompt">Khetha ulimi</string>
+    <string name="dark_mode">Imodi Emnyama</string>
+    <string name="daily_calorie_goal">Inhloso Yamakhalori Yansuku Zonke</string>
+    <string name="enter_calorie_target">Faka inani lamakhalori</string>
+    <string name="save_goal">Gcina Inhloso</string>
+    <string name="goal_saved">Inhloso igciniwe ✅</string>
+
+    <string name="add_meal">Engeza Isidlo</string>
+    <string name="search">Sesha</string>
+    <string name="results_will_appear">Imiphumela izovela lapha</string>
+    <string name="add_meal_header">🍽️ Engeza ukudla</string>
+    <string name="food_input_hint">Faka ukudla (isb. inkomishi eyodwa yerayisi)</string>
+    <string name="search_button">Sesha</string>
+    <string name="result_placeholder">Imiphumela izovela lapha</string>
+    <string name="add_meal_button">Engeza ukudla</string>
+    <string name="toolbar_title_meal_planner">Uhlelo Lokudla</string>
+    <string name="daily_goal_label">Inhloso Yansuku zonke: %1$d kcal</string>
+    <string name="consumed_label">Okudliwe: %1$d kcal</string>
+    <string name="meal_deleted">%1$s isusiwe</string>
+    <string name="meal_delete_failed">Kwehlulekile ukususa ukudla</string>
+    <string name="user_not_logged_in">Umsebenzisi akangeni ngemvume</string>
+
+    <!--Dashboard-->
+    <string name="this_week">Kuleli Viki</string>
+
+    <string name="total_training_template">Uqeqesho Lwonke: %1$s</string>
+    <string name="goal_template">Inhloso: %1$s</string>
+
+    <string name="weather_template">%1$s  %2$s | %3$s</string>
+
+    <string name="fullbody_workout">Ukuziqeqesha Komzimba Wonke</string>
+    <string name="workout_details_template">%1$d Iziqeqesho | %2$s imiz</string>
+    <string name="workout_image_cd">Isithombe sokuqeqesha</string>
+
+    <string name="water_intake">Uketshezi Lokuphuza</string>
+    <string name="foot_steps">Izinyathelo</string>
+    <string name="water_icon_cd">Isithonjana samanzi</string>
+    <string name="steps_icon_cd">Isithonjana sezigxobo</string>
+
+    <string name="home_cd">Ikhaya</string>
+    <string name="fitness_cd">Ukuzivocavoca</string>
+    <string name="mealplan_cd">Uhlelo Lokudla</string>
+    <string name="info_cd">Ulwazi</string>
+    <string name="settings_cd">Izilungiselelo</string>
+
+    <string name="meal_name">Igama lesidlo</string>
+    <string name="sample_calories">200 amakhalori</string>
+    <string name="sample_macros">P: 20g | C: 30g | F: 10g</string>
+    <string name="delete_meal">Susa isidlo</string>
+
+    <!--Login-->
+    <string name="welcome_back">Siyakwamukela futhi</string>
+    <string name="email_login">I-imeyili</string>
+    <string name="password_login">Iphasiwedi</string>
+    <string name="login">Ngena</string>
+    <string name="register_redirect">Awunayo i-akhawunti? Bhalisa</string>
+
+    <!--Register-->
+    <string name="create_account">Dala i-Akhawunti</string>
+    <string name="full_name">Igama eligcwele</string>
+    <string name="email">I-imeyili</string>
+    <string name="password">Iphasiwedi</string>
+    <string name="register">Bhalisa</string>
+    <string name="already_have_account">Usunayo i-akhawunti? Ngena</string>
+</resources>

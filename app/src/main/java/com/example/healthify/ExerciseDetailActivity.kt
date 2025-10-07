@@ -3,12 +3,18 @@ package com.example.healthify
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import com.example.healthify.methods.BaseActivity
 
-class ExerciseDetailActivity : AppCompatActivity() {
+class ExerciseDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Apply saved language at app start
+        /*val prefs = PrefsManager(applicationContext)
+        val lang = prefs.getLanguage()
+        LocaleHelper.applyLocale(applicationContext, lang)*/
+
         setContentView(R.layout.activity_exercise_detail)
 
         // Bind UI views
