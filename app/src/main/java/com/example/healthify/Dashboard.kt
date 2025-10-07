@@ -27,45 +27,41 @@ class Dashboard : AppCompatActivity() {
     private lateinit var txtGoal: TextView
     private lateinit var btnMealLogging: Button
 
-    // Replace this with your real OpenWeather API key
-    private val apiKey = "YOUR_OPENWEATHER_API_KEY"
+    // --- API Keys and Config ---
+    private val weatherApiKey = "YOUR_OPENWEATHER_API_KEY"
     private val city = "Pretoria"
+
+    // Replace this with your real backend API if you have one
+    private val trainingApiBaseUrl = "https://66f7dcd3a1b1f9e6274f.mockapi.io/api/v1/"
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
 
-        // Handle window insets (status bar padding)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Bind UI elements
         txtWeather = findViewById(R.id.txtWeather)
         progressCircle = findViewById(R.id.progressCircle)
         txtTotalTraining = findViewById(R.id.txtTotalTraining)
         txtGoal = findViewById(R.id.txtGoal)
-        btnMealLogging = findViewById(R.id.btnMealLogging)
+       // btnMealLogging = findViewById(R.id.btnMealLogging)
 
-        // Fetch live weather
+        // Fetch live weather data
         fetchWeather(city)
 
-        // Update training progress
-        updateTrainingProgress(totalMinutes = 180, goalMinutes = 135)
+        // Fetch training data from an API
+        fetchTrainingProgress()
 
-        // Navigate to Meal Logging
-        btnMealLogging.setOnClickListener {
-           // startActivity(Intent(this, MealLoggingActivity::class.java))
-        }
     }
 
     /** --- WEATHER API SETUP --- **/
     interface WeatherService {
-        @GET("repository/2.5/weather")
+        @GET("data/2.5/weather")
         fun getWeather(
             @Query("q") city: String,
             @Query("appid") apiKey: String,
@@ -87,7 +83,7 @@ class Dashboard : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(WeatherService::class.java)
-        val call = service.getWeather(city, apiKey)
+        val call = service.getWeather(city, weatherApiKey)
 
         call.enqueue(object : Callback<WeatherResponse> {
             override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
@@ -107,10 +103,50 @@ class Dashboard : AppCompatActivity() {
         })
     }
 
-    /** --- TRAINING PROGRESS --- **/
+    /** --- TRAINING PROGRESS API --- **/
+    interface TrainingService {
+        @GET("training/progress")
+        fun getTrainingProgress(
+            @Query("user_id") userId: String = "1234"
+        ): Call<TrainingResponse>
+    }
+
+    data class TrainingResponse(
+        val totalMinutes: Int,
+        val goalMinutes: Int
+    )
+
+    private fun fetchTrainingProgress() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(trainingApiBaseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val service = retrofit.create(TrainingService::class.java)
+        val call = service.getTrainingProgress()
+
+        call.enqueue(object : Callback<TrainingResponse> {
+            override fun onResponse(call: Call<TrainingResponse>, response: Response<TrainingResponse>) {
+                if (response.isSuccessful) {
+                    val progress = response.body()
+                    if (progress != null) {
+                        updateTrainingProgress(progress.totalMinutes, progress.goalMinutes)
+                    }
+                } else {
+                    txtTotalTraining.text = "⚠️ Progress unavailable"
+                }
+            }
+
+            override fun onFailure(call: Call<TrainingResponse>, t: Throwable) {
+                txtTotalTraining.text = "⚠️ Network error"
+            }
+        })
+    }
+
+    /** --- TRAINING PROGRESS DISPLAY --- **/
     private fun updateTrainingProgress(totalMinutes: Int, goalMinutes: Int) {
-        txtTotalTraining.text = "Total Training: ${totalMinutes / 60}:${totalMinutes % 60}h"
-        txtGoal.text = "Goal: ${goalMinutes / 60}:${goalMinutes % 60}h"
+        txtTotalTraining.text = "Total Training: ${totalMinutes / 60}h ${totalMinutes % 60}m"
+        txtGoal.text = "Goal: ${goalMinutes / 60}h ${goalMinutes % 60}m"
 
         val progressPercent = ((totalMinutes.toFloat() / goalMinutes) * 100)
             .toInt().coerceAtMost(100)
@@ -119,7 +155,7 @@ class Dashboard : AppCompatActivity() {
 
     fun gotoWorkout(view: View) {
         startActivity(Intent(this, WorkoutActivity::class.java))
-        //finish()
+       // finish()
     }
 
     fun gotoSettings(view: View) {
