@@ -1,9 +1,11 @@
 package com.example.healthify
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -22,12 +24,18 @@ class WorkoutActivity : AppCompatActivity() {
     private lateinit var container: LinearLayout
     private val client = OkHttpClient()
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout)
 
         btnLoad = findViewById(R.id.btnSearch)
         container = findViewById(R.id.workoutContainer)
+        val btnReturn = findViewById<ImageButton>(R.id.btnReturn)
+
+        btnReturn.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         btnLoad.setOnClickListener {
             container.removeAllViews()
