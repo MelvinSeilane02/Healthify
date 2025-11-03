@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.healthify.adapter.ExerciseAdapter
+import com.example.healthify.adapters.ExerciseAdapter
 import com.example.healthify.api.RetrofitInstance
 import com.example.healthify.models.Exercise
 import com.google.firebase.auth.FirebaseAuth

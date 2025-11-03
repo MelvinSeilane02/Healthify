@@ -1,4 +1,4 @@
-package com.example.healthify.adapter
+package com.example.healthify.adapters
 
 import android.view.LayoutInflater
 import android.view.View
