@@ -1,82 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/workoutLayout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
+    android:background="@color/white"
     android:padding="16dp"
     tools:context=".WorkoutActivity">
 
-    <!-- Top App Bar with Back Button -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingBottom="8dp">
-
-        <ImageButton
-            android:id="@+id/btnReturn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="Back"
-            android:padding="6dp"
-            android:src="@drawable/ic_arrow_back"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/tvHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="Exercise Details"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
-    <!-- Page Title -->
     <TextView
-        android:id="@+id/tvWorkoutTitle"
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Find Your Exercises"
-        android:textAlignment="center"
-        android:textColor="@color/black"
+        android:text="💪 Choose Your Workout"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
         android:paddingBottom="12dp" />
 
-    <!-- Button to Load Exercises -->
-    <Button
-        android:id="@+id/btnSearch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Load Exercises"
-        android:textAllCaps="false"
-        android:backgroundTint="@color/blue"
-        android:textColor="@android:color/white"
-        android:padding="10dp"
-        android:layout_marginBottom="12dp" />
-
-    <!-- Scrollable List of Exercises -->
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewExercises"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
-
-        <LinearLayout
-            android:id="@+id/workoutContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="24dp">
-        </LinearLayout>
-    </ScrollView>
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:scrollbars="vertical" />
 
 </LinearLayout>
-
-

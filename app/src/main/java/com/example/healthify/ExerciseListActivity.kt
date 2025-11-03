@@ -2,97 +2,87 @@ package com.example.healthify
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.squareup.picasso.Picasso
-import okhttp3.*
-import org.json.JSONArray
-import java.io.IOException
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.healthify.adapter.ExerciseAdapter
+import com.example.healthify.api.RetrofitInstance
+import com.example.healthify.models.Exercise
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ExerciseListActivity : AppCompatActivity() {
 
-    private lateinit var container: LinearLayout
-    private val client = OkHttpClient()
+    private lateinit var rvExercises: RecyclerView
+    private lateinit var adapter: ExerciseAdapter
+    private lateinit var tvCategoryTitle: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_list)
 
-        container = findViewById(R.id.exerciseContainer)
-        val target = intent.getStringExtra("target")
-        Log.d("ExerciseListActivity", "Received target: $target")
-        if (target != null) {
-            loadExercises(target)
-        }
+        tvCategoryTitle = findViewById(R.id.tvCategoryTitle)
+        rvExercises = findViewById(R.id.rvExercises)
+        rvExercises.layoutManager = LinearLayoutManager(this)
 
+        val category = intent.getStringExtra("CATEGORY") ?: "back"
+        tvCategoryTitle.text = category.uppercase()
 
+        loadExercises(category)
     }
 
-    private fun loadExercises(target: String) {
-        val request = Request.Builder()
-            .url("https://exercisedb.p.rapidapi.com/exercises/target/%7Btarget%7D")
-            .get()
-            .addHeader("x-rapidapi-key", "3f7e508fadmsh959f9d383b10369p11ec0bjsnf6434848fca6")
-            .addHeader("x-rapidapi-host", "exercisedb.p.rapidapi.com")
-            .build()
+    private fun loadExercises(muscle: String) {
+        val call = RetrofitInstance.api.getExercisesByMuscle(muscle)
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(this@ExerciseListActivity, "Failed to load exercises", Toast.LENGTH_SHORT).show()
+        call.enqueue(object : Callback<List<Exercise>> {
+            override fun onResponse(
+                call: Call<List<Exercise>>,
+                response: Response<List<Exercise>>
+            ) {
+                if (response.isSuccessful) {
+                    val exercises = response.body() ?: emptyList()
+                    adapter = ExerciseAdapter(exercises)
+                    rvExercises.adapter = adapter
+                } else {
+                    Toast.makeText(this@ExerciseListActivity, "Failed to load data", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                val json = response.body?.string()
-                if (json != null) {
-                    if (json.trim().startsWith("{")) {
-                        // This means it's an error object, not an array
-                        Log.e("ExerciseListActivity", "Error response: $json")
-                        runOnUiThread {
-                            Toast.makeText(this@ExerciseListActivity, "Invalid target or API error", Toast.LENGTH_SHORT).show()
-                        }
-                        return
-                    }
-
-                    val exercises = JSONArray(json)
-                    runOnUiThread {
-                        displayExercises(exercises)
-                    }
-                }
+            override fun onFailure(call: Call<List<Exercise>>, t: Throwable) {
+                Toast.makeText(this@ExerciseListActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.e("ExerciseListActivity", "API Error", t)
             }
         })
     }
 
-    private fun displayExercises(exercises: JSONArray) {
-        container.removeAllViews()
-        for (i in 0 until exercises.length()) {
-            val item = exercises.getJSONObject(i)
-            val name = item.getString("name")
-            val equipment = item.getString("equipment")
-            val gifUrl = item.getString("gifUrl")
+    private fun markExerciseAsCompleted(exercise: Exercise) {
+        Toast.makeText(this, "${exercise.name} marked as completed!", Toast.LENGTH_SHORT).show()
 
-            val layout = LinearLayout(this).apply {
-                orientation = LinearLayout.VERTICAL
-                setPadding(16, 16, 16, 16)
+        // Optional Firestore save
+        val db = Firebase.firestore
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        val workoutData = mapOf(
+            "name" to exercise.name,
+            "muscle" to exercise.bodyPart,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        db.collection("user_workouts")
+            .document(userId)
+            .collection("completed_exercises")
+            .add(workoutData)
+            .addOnSuccessListener {
+                Log.d("Firestore", "✅ Saved: ${exercise.name}")
             }
-
-            val image = ImageView(this).apply {
-                layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    400
-                )
-                Picasso.get().load(gifUrl).into(this)
+            .addOnFailureListener { e ->
+                Log.e("Firestore", "❌ Failed to save exercise", e)
             }
-
-            val text = TextView(this).apply {
-                text = "$name\nEquipment: $equipment"
-                textSize = 16f
-            }
-
-            layout.addView(image)
-            layout.addView(text)
-            container.addView(layout)
-        }
     }
 }

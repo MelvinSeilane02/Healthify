@@ -1,132 +1,85 @@
 package com.example.healthify
 
-import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
-import android.util.Log
-import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
-import okhttp3.*
-import org.json.JSONArray
-import java.io.IOException
-import androidx.core.content.ContextCompat
-
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.healthify.adapter.ExerciseAdapter
+import com.example.healthify.models.Exercise
+import com.google.firebase.firestore.FirebaseFirestore
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 class WorkoutActivity : AppCompatActivity() {
 
-    private lateinit var btnLoad: MaterialButton
-    private lateinit var container: LinearLayout
-    private val client = OkHttpClient()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var exerciseAdapter: ExerciseAdapter
+    private val exerciseList = mutableListOf<Exercise>()
+    private val db = FirebaseFirestore.getInstance()
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_workout)
 
-        btnLoad = findViewById(R.id.btnSearch)
-        container = findViewById(R.id.workoutContainer)
-        val btnReturn = findViewById<ImageButton>(R.id.btnReturn)
+        recyclerView = findViewById(R.id.recyclerViewExercises)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        exerciseAdapter = ExerciseAdapter(exerciseList)
+        recyclerView.adapter = exerciseAdapter
 
-        btnReturn.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
-
-        btnLoad.setOnClickListener {
-            container.removeAllViews()
-            val muscles = listOf("abs", "chest", "triceps")
-            muscles.forEach { loadExercises(it) }
-        }
+        fetchExercisesByMuscle("chest")
     }
 
-    private fun loadExercises(muscle: String) {
-        val url = "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=$muscle"
+    // --- ExerciseDB API ---
+    interface ExerciseApi {
+        @GET("exercises")
+        fun getExercises(@Query("muscle") muscle: String): Call<List<Exercise>>
+    }
 
-        val request = Request.Builder()
-            .url(url)
-            .get()
-            .addHeader("x-rapidapi-key", "3f7e508fadmsh959f9d383b10369p11ec0bjsnf6434848fca6")
-            .addHeader("x-rapidapi-host", "exercises-by-api-ninjas.p.rapidapi.com")
+    private fun fetchExercisesByMuscle(muscle: String) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://exercisedb.p.rapidapi.com/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(this@WorkoutActivity, "Failed to fetch exercises for $muscle", Toast.LENGTH_SHORT).show()
-                    Log.e("WorkoutActivity", "API call failed for $muscle", e)
+        val service = retrofit.create(ExerciseApi::class.java)
+        service.getExercises(muscle).enqueue(object : Callback<List<Exercise>> {
+            override fun onResponse(call: Call<List<Exercise>>, response: Response<List<Exercise>>) {
+                if (response.isSuccessful) {
+                    exerciseList.clear()
+                    response.body()?.let { exerciseList.addAll(it) }
+                    exerciseAdapter.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(this@WorkoutActivity, "Failed to load exercises", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                val json = response.body?.string()
-                if (!response.isSuccessful || json.isNullOrEmpty()) {
-                    runOnUiThread {
-                        Toast.makeText(this@WorkoutActivity, "No exercises found for $muscle", Toast.LENGTH_SHORT).show()
-                    }
-                    return
-                }
-
-                try {
-                    val exercises = JSONArray(json)
-                    runOnUiThread { displayExercises(muscle, exercises) }
-                } catch (e: Exception) {
-                    Log.e("WorkoutActivity", "Invalid JSON for $muscle: $json", e)
-                    runOnUiThread {
-                        Toast.makeText(this@WorkoutActivity, "Invalid response for $muscle", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            override fun onFailure(call: Call<List<Exercise>>, t: Throwable) {
+                Toast.makeText(this@WorkoutActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
-    private fun displayExercises(muscle: String, exercises: JSONArray) {
-        // Add section header
-        val header = TextView(this).apply {
-            text = muscle.uppercase()
-            textSize = 20f
-            setTextColor(getColor(android.R.color.black))
-            setPadding(8, 24, 8, 12)
-        }
-        container.addView(header)
+    // --- Mark Workout Complete and Save to Firestore ---
+    private fun markWorkoutComplete(exercise: Exercise) {
+        val workoutData = hashMapOf(
+            "userId" to "1234", // Replace with Firebase Auth UID if available
+            "exerciseName" to exercise.name,
+            "duration" to 15, // In minutes, or estimate dynamically
+            "timestamp" to System.currentTimeMillis()
+        )
 
-        // Create styled exercise cards
-        for (i in 0 until exercises.length()) {
-            val obj = exercises.getJSONObject(i)
-            val name = obj.getString("name")
-            val type = obj.optString("type", "N/A")
-            val difficulty = obj.optString("difficulty", "N/A")
-
-            val card = MaterialCardView(this).apply {
-                radius = 16f
-                cardElevation = 6f
-                setCardBackgroundColor(getColor(R.color.white))
-                layoutParams = ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                ).apply { setMargins(0, 12, 0, 12) }
-
-                val btn = MaterialButton(this@WorkoutActivity).apply {
-                    text = "$name\n($difficulty • $type)"
-                    setTextColor(getColor(android.R.color.black))
-                    setBackgroundColor(getColor(R.color.blue))
-                    setOnClickListener {
-                        val intent = Intent(this@WorkoutActivity, ExerciseDetailActivity::class.java)
-                        intent.putExtra("exercise_name", name)
-                        intent.putExtra("type", type)
-                        intent.putExtra("difficulty", difficulty)
-                        intent.putExtra("instructions", obj.optString("instructions"))
-                        startActivity(intent)
-                    }
-                }
-
-                addView(btn)
+        db.collection("user_workouts")
+            .add(workoutData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Workout saved ✅", Toast.LENGTH_SHORT).show()
+                setResult(Activity.RESULT_OK) // So dashboard knows to refresh
             }
-            container.addView(card)
-        }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to save workout", Toast.LENGTH_SHORT).show()
+            }
     }
 }
