@@ -4,79 +4,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="16dp">
-
+    android:padding="16dp"
+    tools:context=".ExerciseDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:gravity="center_horizontal">
 
-        <!-- Top App Bar with Back Button -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="8dp">
+        <!-- Exercise GIF -->
+        <ImageView
+            android:id="@+id/imgDetail"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/rounded_background"
+            android:contentDescription="Exercise GIF"
+            android:layout_marginBottom="16dp" />
 
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:contentDescription="Back"
-                android:padding="6dp"
-                android:src="@drawable/ic_arrow_back"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <TextView
-                android:id="@+id/tvHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="Exercise Details"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
-        </LinearLayout>
+        <!-- Exercise Name -->
         <TextView
-            android:id="@+id/exerciseName"
-            android:layout_width="match_parent"
+            android:id="@+id/txtDetailName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exercise Name"
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:gravity="center"
-            android:paddingBottom="10dp" />
+            android:layout_marginBottom="12dp" />
 
+        <!-- Target -->
         <TextView
-            android:id="@+id/exerciseType"
+            android:id="@+id/txtDetailTarget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Target: Back"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Equipment -->
+        <TextView
+            android:id="@+id/txtDetailEquipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Equipment: Dumbbell"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Complete Button -->
+        <Button
+            android:id="@+id/btnMarkComplete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Type: Strength"
-            android:textSize="16sp"
-            android:paddingBottom="6dp" />
-
-        <TextView
-            android:id="@+id/exerciseDifficulty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Difficulty: Intermediate"
-            android:textSize="16sp"
-            android:paddingBottom="6dp" />
-
-        <TextView
-            android:id="@+id/exerciseInstructions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Instructions go here..."
-            android:textSize="16sp"
-            android:paddingTop="10dp" />
+            android:text="Mark as Completed"
+            android:textAllCaps="false"
+            android:backgroundTint="@color/blue"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
+
 </ScrollView>
-
-
-

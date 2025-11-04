@@ -4,11 +4,13 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    val api: ExerciseApiService by lazy {
+    private const val BASE_URL = "https://exercisedb.p.rapidapi.com/"
+
+    val api: ExerciseApi by lazy {
         Retrofit.Builder()
-            .baseUrl("https://exercisedb.p.rapidapi.com/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(ExerciseApiService::class.java)
+            .create(ExerciseApi::class.java)
     }
 }
