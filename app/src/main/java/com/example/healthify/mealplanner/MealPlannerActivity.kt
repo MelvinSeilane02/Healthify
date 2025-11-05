@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthify.PrefsManager
 import com.example.healthify.R
 import com.example.healthify.adapters.MealAdapter
@@ -14,6 +13,11 @@ import com.example.healthify.models.Meal
 import com.example.healthify.repository.MealRepository
 import com.google.firebase.auth.FirebaseAuth
 import androidx.appcompat.widget.Toolbar
+import androidx.viewpager2.widget.ViewPager2
+import com.example.healthify.adapters.MealPagerAdapter
+
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MealPlannerActivity : BaseActivity() {
 
@@ -28,6 +32,20 @@ class MealPlannerActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMealPlannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
+        val viewPager = findViewById<ViewPager2>(R.id.viewPager)
+
+        val adapter = MealPagerAdapter(this)
+        binding.viewPager.adapter = adapter
+
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = when (position) {
+                0 -> getString(R.string.breakfast)
+                1 -> getString(R.string.lunch)
+                else -> getString(R.string.supper)
+            }
+        }.attach()
 
         // --- toolbar (uses toolbar defined in toolbar_layout.xml with id @+id/appToolbar) ---
         val toolbar = findViewById<Toolbar>(R.id.appToolbar)
@@ -51,8 +69,8 @@ class MealPlannerActivity : BaseActivity() {
         // mealAdapter = MealAdapter(mealList)
         // mealAdapter.onDeleteClick = { meal -> handleDeleteMeal(meal) }
 
-        binding.recyclerViewMeals.layoutManager = LinearLayoutManager(this)
-        binding.recyclerViewMeals.adapter = mealAdapter
+        /*binding.recyclerViewMeals.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewMeals.adapter = mealAdapter*/
 
         // Show daily goal (localized)
         binding.tvGoal.text = getString(R.string.daily_goal_label, dailyGoal)

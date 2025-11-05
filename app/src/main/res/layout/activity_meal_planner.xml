@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@android:color/white"
+    android:background="@color/white"
     android:padding="16dp"
     tools:context=".mealplanner.MealPlannerActivity">
 
@@ -22,7 +22,7 @@
         android:text="@string/daily_goal_label"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black"
         android:layout_marginTop="12dp" />
 
     <!-- ✅ Total Calories -->
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="@string/consumed_label"
         android:layout_marginTop="8dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textGray"
         android:textSize="16sp" />
 
     <!-- ✅ Progress Bar -->
@@ -44,15 +44,29 @@
         android:layout_marginVertical="8dp"
         android:max="100"
         android:progress="0"
-        android:progressTint="@color/teal_700" />
+        android:progressTint="@color/primaryBlue"
+        android:backgroundTint="@color/textGray" />
 
-    <!-- ✅ Meal List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMeals"
+    <!-- ✅ Tabs for meal categories -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabIndicatorColor="@color/primaryBlue"
+        app:tabSelectedTextColor="@color/primaryBlue"
+        app:tabTextColor="@color/black"
+        app:tabIndicatorHeight="3dp"
+        android:elevation="2dp" />
+
+    <!-- ✅ ViewPager2 for switching fragments -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingBottom="60dp" />
+        android:paddingBottom="60dp"
+        android:background="@color/white" />
 
     <!-- ✅ Floating Action Button -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -63,6 +77,7 @@
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_input_add"
         android:contentDescription="@string/add_meal"
-        android:backgroundTint="@color/teal_700" />
+        android:backgroundTint="@color/primaryBlue"
+        app:tint="@color/white" />
 
 </LinearLayout>

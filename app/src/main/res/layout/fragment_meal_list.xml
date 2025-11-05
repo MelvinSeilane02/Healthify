@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <!-- ✅ Title -->
+    <TextView
+        android:id="@+id/tvMealType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Meal Type"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <!-- ✅ Calories Text -->
+    <TextView
+        android:id="@+id/tvTotalCalories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calories: 0 kcal"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp" />
+
+    <!-- ✅ Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:max="100"
+        android:progress="0"
+        android:progressTint="@color/primaryBlue"
+        android:layout_marginBottom="12dp" />
+
+    <!-- ✅ RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMeals"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingBottom="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

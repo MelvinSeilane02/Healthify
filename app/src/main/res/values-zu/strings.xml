@@ -72,4 +72,9 @@
     <string name="password">Iphasiwedi</string>
     <string name="register">Bhalisa</string>
     <string name="already_have_account">Usunayo i-akhawunti? Ngena</string>
+
+    <!-- ✅ Tab titles -->
+    <string name="breakfast">Isidlo sasekuseni</string>
+    <string name="lunch">Isidlo sasemini</string>
+    <string name="supper">Isidlo sakusihlwa</string>
 </resources>

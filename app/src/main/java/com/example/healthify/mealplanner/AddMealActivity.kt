@@ -5,6 +5,7 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.healthify.BuildConfig
 import com.example.healthify.R
@@ -37,7 +38,17 @@ class AddMealActivity : BaseActivity() {
 
         mealRepository = MealRepository()
 
-        val selectedCategory = binding.spinnerMealCategory.selectedItem.toString()
+        /*val categories = listOf("Breakfast", "Lunch", "Supper")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerMealCategory.adapter = adapter*/
+
+
+        /*val selectedCategory = binding.spinnerMealCategory.selectedItem.toString()
+        // Debug output to verify the value
+        Log.d("MealCategoryCheck", "Selected Category: $selectedCategory")
+
+        Toast.makeText(this, "Selected: $selectedCategory", Toast.LENGTH_SHORT).show()*/
 
         binding.btnSearch.setOnClickListener {
             val query = binding.etFoodInput.text.toString().trim()
@@ -48,6 +59,10 @@ class AddMealActivity : BaseActivity() {
 
         // Add meal to Firestore
         binding.btnAddMeal.setOnClickListener {
+            val selectedCategory = binding.spinnerMealCategory.selectedItem?.toString() ?: "Unknown"
+            Log.d("MealCategoryCheck", "Selected Category (onAdd): $selectedCategory")
+            Toast.makeText(this, "Selected: $selectedCategory", Toast.LENGTH_SHORT).show()
+
             val userId = FirebaseAuth.getInstance().currentUser?.uid
 
 
@@ -87,12 +102,8 @@ class AddMealActivity : BaseActivity() {
                     }
                 }
             } else {
-
-                Log.d(TAG, "No user is currently signed in.")
-                Log.d(TAG, "No user is currently signed in.")
-                Log.d(TAG, "No user is currently signed in.")
-                Log.d(TAG, "Fat : ")
-
+                // helpful debug logs
+                Log.d(TAG, "AddMeal: userId=$userId currentFood=$currentFood")
                 Toast.makeText(this, "No meal repository to save!", Toast.LENGTH_SHORT).show()
             }
         }

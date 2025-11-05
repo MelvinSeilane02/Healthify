@@ -72,4 +72,9 @@
     <string name="password">Khunololamoraba</string>
     <string name="register">Ikwadise</string>
     <string name="already_have_account">O setse o na le akhaonto? Tsena</string>
+
+    <!-- ✅ Tab titles -->
+    <string name="breakfast">Bogaufi</string>
+    <string name="lunch">Dijo tsa motshegare</string>
+    <string name="supper">Dijo tsa maitseboa</string>
 </resources>
