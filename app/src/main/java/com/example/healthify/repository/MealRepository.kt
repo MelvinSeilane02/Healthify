@@ -3,6 +3,7 @@ package com.example.healthify.repository
 import com.example.healthify.models.Meal
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import java.util.Calendar
 
 class MealRepository(
@@ -10,49 +11,66 @@ class MealRepository(
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 ) {
 
-    private val userId = auth.currentUser?.uid
+    /**
+     * Add Meal to Firestore.
+     * onComplete(success, exception) -> exception is null on success.
+     */
+    fun addMeal(meal: Meal, onComplete: (Boolean, Exception?) -> Unit) {
+        val uid = auth.currentUser?.uid
+        if (uid == null) {
+            onComplete(false, IllegalStateException("No authenticated user"))
+            return
+        }
 
-    // ✅ Add Meal to Firestore
-    fun addMeal(meal: Meal, onComplete: (Boolean) -> Unit) {
-        userId?.let { uid ->
-            firestore.collection("users")
-                .document(uid)
-                .collection("meals")
-                .document(meal.id)
-                .set(meal)
-                .addOnSuccessListener { onComplete(true) }
-                .addOnFailureListener { onComplete(false) }
-        } ?: onComplete(false)
+        firestore.collection("users")
+            .document(uid)
+            .collection("meals")
+            .document(meal.id)
+            .set(meal, SetOptions.merge()) // merge to be safe; change to .set(meal) to overwrite
+            .addOnSuccessListener { onComplete(true, null) }
+            .addOnFailureListener { e -> onComplete(false, e) }
     }
 
-    // ✅ Fetch Meals for Today
+    /**
+     * Fetch meals for today (timestamp >= start of day)
+     */
     fun getMealsForToday(onResult: (List<Meal>) -> Unit) {
-        userId?.let { uid ->
-            val todayStart = getStartOfDay()
-            firestore.collection("users")
-                .document(uid)
-                .collection("meals")
-                .whereGreaterThanOrEqualTo("timestamp", todayStart)
-                .get()
-                .addOnSuccessListener { snapshot ->
-                    val meals = snapshot.toObjects(Meal::class.java)
-                    onResult(meals)
-                }
-                .addOnFailureListener { onResult(emptyList()) }
-        } ?: onResult(emptyList())
+        val uid = auth.currentUser?.uid
+        if (uid == null) {
+            onResult(emptyList())
+            return
+        }
+
+        val todayStart = getStartOfDay()
+        firestore.collection("users")
+            .document(uid)
+            .collection("meals")
+            .whereGreaterThanOrEqualTo("timestamp", todayStart)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                val meals = snapshot.toObjects(Meal::class.java)
+                onResult(meals)
+            }
+            .addOnFailureListener { _ -> onResult(emptyList()) }
     }
 
-    // ✅ Delete Meal by ID
-    fun deleteMeal(mealId: String, onComplete: (Boolean) -> Unit) {
-        userId?.let { uid ->
-            firestore.collection("users")
-                .document(uid)
-                .collection("meals")
-                .document(mealId)
-                .delete()
-                .addOnSuccessListener { onComplete(true) }
-                .addOnFailureListener { onComplete(false) }
-        } ?: onComplete(false)
+    /**
+     * Delete meal by ID
+     */
+    fun deleteMeal(mealId: String, onComplete: (Boolean, Exception?) -> Unit) {
+        val uid = auth.currentUser?.uid
+        if (uid == null) {
+            onComplete(false, IllegalStateException("No authenticated user"))
+            return
+        }
+
+        firestore.collection("users")
+            .document(uid)
+            .collection("meals")
+            .document(mealId)
+            .delete()
+            .addOnSuccessListener { onComplete(true, null) }
+            .addOnFailureListener { e -> onComplete(false, e) }
     }
 
     private fun getStartOfDay(): Long {

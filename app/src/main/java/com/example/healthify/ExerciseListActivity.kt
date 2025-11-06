@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthify.adapters.ExerciseAdapter
 import com.example.healthify.api.RetrofitInstance
+import com.example.healthify.methods.BaseActivity
 import com.example.healthify.models.Exercise
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ExerciseListActivity : AppCompatActivity() {
+class ExerciseListActivity : BaseActivity() {
 
     private lateinit var rvExercises: RecyclerView
     private lateinit var adapter: ExerciseAdapter

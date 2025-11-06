@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthify.adapters.ExerciseAdapter
 import com.example.healthify.api.ExerciseApiService
+import com.example.healthify.methods.BaseActivity
 import com.example.healthify.models.Exercise
 import com.google.firebase.firestore.FirebaseFirestore
 import okhttp3.OkHttpClient
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
 
-class WorkoutActivity : AppCompatActivity() {
+class WorkoutActivity : BaseActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var exerciseAdapter: ExerciseAdapter

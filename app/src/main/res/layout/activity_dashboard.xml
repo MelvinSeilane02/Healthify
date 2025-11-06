@@ -13,7 +13,7 @@
         android:id="@+id/txtThisWeek"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This Week"
+        android:text="@string/this_week"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="#000000"
@@ -42,7 +42,7 @@
                 android:id="@+id/txtTotalTraining"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Training: 3:00"
+                android:text="@string/total_training_template"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -54,7 +54,7 @@
                 android:id="@+id/txtGoal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Goal: 2:15"
+                android:text="@string/goal_template"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@id/txtTotalTraining"
@@ -85,7 +85,7 @@
         android:id="@+id/txtWeather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="☀️ Pretoria  21° | Partly Cloudy"
+        android:text="@string/weather_template"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/progressCard"
@@ -113,7 +113,7 @@
                 android:id="@+id/txtWorkoutTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fullbody Workout"
+                android:text="@string/fullbody_workout"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="#000000"
@@ -126,7 +126,7 @@
                 android:id="@+id/txtWorkoutDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="11 Exercises | 32 mins"
+                android:text="@string/workout_details_template"
                 android:textSize="14sp"
                 android:textColor="#666666"
                 app:layout_constraintTop_toBottomOf="@id/txtWorkoutTitle"
@@ -137,6 +137,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:src="@drawable/ic_workout"
+                android:contentDescription="@string/workout_image_cd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -174,7 +175,8 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_water" />
+                    android:src="@drawable/ic_water"
+                    android:contentDescription="@string/water_icon_cd"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,7 +189,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Water Intake"
+                    android:text="@string/water_intake"
                     android:textSize="14sp"
                     android:textColor="#555555" />
             </LinearLayout>
@@ -202,7 +204,8 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_steps" />
+                    android:src="@drawable/ic_steps"
+                    android:contentDescription="@string/steps_icon_cd"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -215,7 +218,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Foot Steps"
+                    android:text="@string/foot_steps"
                     android:textSize="14sp"
                     android:textColor="#555555" />
             </LinearLayout>
@@ -236,7 +239,8 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_home_blue" />
+            android:src="@drawable/ic_home_blue"
+            android:contentDescription="@string/home_cd"/>
 
         <ImageView
             android:id="@+id/fitness"
@@ -245,6 +249,7 @@
             android:layout_marginStart="40dp"
             android:onClick="gotoWorkout"
             android:src="@drawable/ic_barbell"
+            android:contentDescription="@string/fitness_cd"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <ImageView
@@ -253,13 +258,15 @@
             android:layout_height="30dp"
             android:onClick="gotoMealPlan"
             android:layout_marginStart="40dp"
-            android:src="@drawable/ic_cart" />
+            android:src="@drawable/ic_cart"
+            android:contentDescription="@string/mealplan_cd"/>
 
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_info"
-            android:layout_marginStart="40dp" />
+            android:layout_marginStart="40dp"
+            android:contentDescription="@string/info_cd"/>
     </LinearLayout>
 
     <ImageView
@@ -271,6 +278,7 @@
         android:onClick="gotoSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settings_100dp_black" />
+        app:srcCompat="@drawable/settings_100dp_black"
+        android:contentDescription="@string/settings_cd"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

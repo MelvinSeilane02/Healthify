@@ -16,11 +16,16 @@ import androidx.activity.enableEdgeToEdge
 import com.example.healthify.WorkoutActivity
 import com.example.healthify.mealplanner.AddMealActivity
 import com.example.healthify.mealplanner.MealPlannerActivity
+import com.example.healthify.methods.BaseActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-class Dashboard : AppCompatActivity() {
+class Dashboard : BaseActivity() {
 
     private lateinit var txtWeather: TextView
     private lateinit var progressCircle: ProgressBar
