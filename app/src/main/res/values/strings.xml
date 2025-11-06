@@ -1,5 +1,5 @@
 <resources>
-    <string name="exercise_image">Exercise image</string>
+    <string name="exercise_image" translatable="false">Exercise image</string>
     <!--string name="app_name">Healthify</string-->
 
     <string-array name="languages">
@@ -99,4 +99,24 @@
     <string name="breakfast">Breakfast</string>
     <string name="lunch">Lunch</string>
     <string name="supper">Supper</string>
+
+    <!-- WorkoutActivity -->
+    <string name="no_exercises_found">No exercises found for %1$s</string>
+    <string name="failed_load_exercises">Failed to load exercises: %1$d</string>
+    <string name="error_generic">Error: %1$s</string>
+
+    <string name="workout_saved">Workout saved ✅</string>
+    <string name="workout_save_failed">Failed to save workout</string>
+
+    <!-- UI labels (if used) -->
+    <string name="exercises">Exercises</string>
+
+    <string name="choose_your_workout">💪 Choose Your Workout</string>
+
+    <!-- Exercise Detail -->
+    <string name="exercise_gif_desc">Exercise GIF</string>
+    <string name="exercise_name_placeholder">Exercise Name</string>
+    <string name="target_label_placeholder">Target: Back</string>
+    <string name="equipment_label_placeholder">Equipment: Dumbbell</string>
+    <string name="mark_completed">Mark as Completed</string>
 </resources>
