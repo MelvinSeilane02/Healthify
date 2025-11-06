@@ -2,20 +2,33 @@ package com.example.healthify
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import com.example.healthify.methods.BaseActivity
 import com.squareup.picasso.Picasso
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONArray
 import java.io.IOException
 
-class ExerciseListActivity : AppCompatActivity() {
+class ExerciseListActivity : BaseActivity() {
 
     private lateinit var container: LinearLayout
     private val client = OkHttpClient()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Apply saved language at app start
+        /*val prefs = PrefsManager(applicationContext)
+        val lang = prefs.getLanguage()
+        LocaleHelper.applyLocale(applicationContext, lang)*/
+
         setContentView(R.layout.activity_exercise_list)
 
         container = findViewById(R.id.exerciseContainer)

@@ -10,7 +10,7 @@
         android:id="@+id/tvMealName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Meal Name"
+        android:text="@string/meal_name"
         android:textStyle="bold"
         android:textSize="18sp" />
 
@@ -18,14 +18,14 @@
         android:id="@+id/tvCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="200 kcal"
+        android:text="@string/sample_calories"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tvMacros"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="P: 20g | C: 30g | F: 10g"
+        android:text="@string/sample_macros"
         android:textSize="13sp"
         android:textColor="@android:color/darker_gray" />
 
@@ -36,5 +36,5 @@
         android:layout_gravity="end"
         android:src="@android:drawable/ic_menu_delete"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Delete Meal" />
+        android:contentDescription="@string/delete_meal" />
 </LinearLayout>

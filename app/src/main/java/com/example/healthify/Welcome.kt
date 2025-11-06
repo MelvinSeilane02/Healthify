@@ -3,17 +3,23 @@ package com.example.healthify
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.healthify.databinding.ActivityWelcomeBinding
+import com.example.healthify.methods.BaseActivity
 
-class Welcome : AppCompatActivity() {
+class Welcome : BaseActivity() {
 
     private lateinit var binding: ActivityWelcomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Apply saved language at app start
+        /*val prefs = PrefsManager(applicationContext)
+        val lang = prefs.getLanguage()
+        LocaleHelper.applyLocale(applicationContext, lang)*/
+
         enableEdgeToEdge()
 
         // Inflate layout using binding

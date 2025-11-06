@@ -9,16 +9,19 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import com.example.healthify.methods.BaseActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import okhttp3.*
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import org.json.JSONArray
 import java.io.IOException
-import androidx.core.content.ContextCompat
 
 
-class WorkoutActivity : AppCompatActivity() {
+class WorkoutActivity : BaseActivity() {
 
     private lateinit var btnLoad: MaterialButton
     private lateinit var container: LinearLayout
@@ -27,6 +30,12 @@ class WorkoutActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Apply saved language at app start
+        /*val prefs = PrefsManager(applicationContext)
+        val lang = prefs.getLanguage()
+        LocaleHelper.applyLocale(applicationContext, lang)*/
+
         setContentView(R.layout.activity_workout)
 
         btnLoad = findViewById(R.id.btnSearch)

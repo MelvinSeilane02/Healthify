@@ -13,35 +13,39 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
-        <include layout="@layout/toolbar_layout" />
+        <!-- include with id so ViewBinding exposes it as binding.includeToolbar -->
+        <include
+            android:id="@+id/includeToolbar"
+            layout="@layout/toolbar_layout" />
 
         <!-- Header -->
         <TextView
-            android:text="Settings"
+            android:id="@+id/tvSettingsHeader"
+            android:text="@string/settings"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginBottom="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content" />
 
         <!-- Language -->
         <TextView
-            android:text="Language"
+            android:id="@+id/tvLanguageLabel"
+            android:text="@string/language"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/languageSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/languages"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:prompt="@string/language_prompt" />
 
         <!-- Theme Toggle -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -53,14 +57,12 @@
                 android:id="@+id/tvDarkMode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dark Mode"
+                android:text="@string/dark_mode"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteY="9dp"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
                 android:id="@+id/switchTheme"
@@ -76,34 +78,32 @@
 
         <!-- Calorie Goal -->
         <TextView
-            android:text="Daily Calorie Goal"
+            android:id="@+id/tvCalorieLabel"
+            android:text="@string/daily_calorie_goal"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content" />
 
         <EditText
             android:id="@+id/etCalorieGoal"
-            android:hint="Enter calorie target"
+            android:hint="@string/enter_calorie_target"
             android:inputType="number"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_input_bg"
-            android:padding="10dp"
-            tools:ignore="HardcodedText" />
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/btnSaveGoal"
-            android:text="Save Goal"
+            android:text="@string/save_goal"
             android:backgroundTint="@color/blue"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="HardcodedText" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvSavedStatus"

@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textColor="@color/black"
             android:textSize="28sp"
             android:textStyle="bold"
@@ -31,7 +31,7 @@
 
         <EditText
             android:id="@+id/nameField"
-            android:hint="Full Name"
+            android:hint="@string/full_name"
             android:layout_margin="20dp"
             android:textColor="@color/black"
             android:background="#7CA2DE"
@@ -43,7 +43,7 @@
 
         <EditText
             android:id="@+id/emailField"
-            android:hint="Email"
+            android:hint="@string/email"
             android:layout_margin="20dp"
             android:textColor="@color/black"
             android:background="#7CA2DE"
@@ -55,7 +55,7 @@
 
         <EditText
             android:id="@+id/passwordField"
-            android:hint="Password"
+            android:hint="@string/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -67,7 +67,7 @@
 
         <Button
             android:id="@+id/registerButton"
-            android:text="Register"
+            android:text="@string/register"
             android:backgroundTint="#0400F9"
             android:textColor="@color/black"
             android:layout_width="match_parent"
@@ -76,7 +76,7 @@
 
         <TextView
             android:id="@+id/loginRedirect"
-            android:text="Already have an account? Login"
+            android:text="@string/already_have_account"
             android:textColor="#0400F9"
             android:layout_gravity="center"
             android:paddingTop="12dp"
