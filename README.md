@@ -5,21 +5,41 @@ Healthify is an Android application built to help users manage their **nutrition
 ---
 
 ## 🚀 Features
-
-- 🔐 **Firebase Authentication** – Secure login and registration system.
-- ☁️ **Firestore Integration** – Stores user settings, meals, and goals.
-- 🍱 **Meal Planner** – Add, view, and manage meals with calorie and macro breakdown.
-- 🧠 **Nutritionix API Integration** – Fetch accurate nutrition data from a trusted database.
-- 🎯 **Daily Calorie Goal Tracking** – Compare total intake vs. your personalized goal.
-- 🏋️ **Exercise & Workout Tracking** – Monitor your physical activity and progress.
-- 🌦 **Weather Integration** – Get real-time weather info for outdoor training.
-- 🌓 **Theme Switching** – Toggle between light and dark mode.
-- 🌍 **Language Preferences** – English, Zulu, and Setswana support.
-- 🧩 **Firestore Sync** – Settings automatically synced across devices.
-- 🔄 **Offline Storage Ready (Planned)** – Caching data with RoomDB.
-
+- 🔐 Firebase Authentication – Secure login and registration system with password encryption.
+- ☁️ Firestore Integration – Stores user settings, meals, and fitness data.
+- 🍱 Meal Planner – Add, view, and manage meals with calorie and macro breakdown.
+- 🧠 Nutritionix API Integration – Fetch accurate nutrition data from a trusted global database.
+- 🎯 Daily Calorie Goal Tracking – Compare intake vs. your personalized goal.
+- 💪 Exercise & Workout Tracking – Monitor workout sessions and track progress.
+- 🌦 Weather Integration – Get real-time weather for outdoor training (OpenWeather API).
+- 🌓 Theme Switching – Toggle between light and dark mode.
+- 🌍 Language Preferences – Supports English, Zulu, and Setswana.
+- 🔄 Offline Storage (Planned) – RoomDB caching for meals and workouts.
+- 🧩 Firestore Sync – User data synchronized across devices.
+- 🔔 Notifications (Planned) – Push notifications via Firebase Cloud Messaging.
 ---
+## 🎨 Design Considerations
 
+- User-Centered UI: Designed for clarity, accessibility, and smooth navigation.
+- Color Palette: Green tones for wellness, dark mode for battery efficiency.
+- Typography: Sans-serif fonts for readability.
+- Layout: Bottom navigation bar for primary sections (Meals, Fitness, Profile).
+- Responsiveness: Fully optimized for different screen sizes.
+- Error Handling: All forms validate inputs to prevent crashes.
+- Multi-language support: Strings.xml configured for three languages.
+---
+## 🧱 Technologies Used
+
+- Kotlin
+- Firebase Authentication & Firestore
+- Retrofit + Gson + OkHttp
+- Nutritionix & OpenWeather APIs
+- RoomDB (Planned for Offline Mode)
+- Material Design Components
+- JUnit & Mockito (Unit Testing)
+- GitHub Actions (Automated Build & Test)
+- MPAndroidChart (Planned for Visualization)
+---
 ## ⚙️ Setup & Installation
 
 ### 1. Clone the repository
@@ -198,6 +218,17 @@ Consistent structure for scalability:
 ```
 
 ---
+## 🔬 GitHub Actions (Automated Testing & Build)
+
+- GitHub workflow located at:
+.github/workflows/build.yml
+
+This workflow:
+
+- Builds the Android project automatically
+- Runs JUnit tests
+- Ensures code compiles successfully across environments
+---
 
 #### 🧪 6. Unit Testing Setup
 Configured **Mockito + JUnit**:
@@ -230,7 +261,37 @@ Supports:
 - Secure API key handling via `buildConfigField`
 
 ---
+## 🧾 Release Notes
+###Version 1.0 – Prototype
+- Firebase Authentication
+- Nutritionix API for meal data
+- Firestore integration for user meals
+- OpenWeather API setup for weather display
+- Exercise tracking with progress visualization
 
+### Version 2.0 – Final POE
+- Added multi-language support (Zulu + Setswana)
+- Added light/dark mode toggle
+- Implemented GitHub Actions CI/CD pipeline
+- Improved Firestore data structure
+- Enhanced UI with Material Components
+- Prepared offline caching (RoomDB structure)
+- Added Release Notes & ReadMe Documentation
+- Integrated signed APK and Play Console preparation
+---
+## 🤖 AI Tools Utilized (≤500 words)
+
+AI tools such as ChatGPT (OpenAI) were used during the development of Healthify to:
+- Debug Kotlin syntax and logic errors in API calls.
+- Generate Retrofit integration templates.
+- Create documentation and technical explanations.
+- Suggest database structure best practices for Firestore.
+- Assist with the localization setup and translation placeholders.
+- Format README and write professional-level documentation.
+
+All code suggestions from AI were verified, customized, and tested by the developers before implementation to ensure reliability, accuracy, and compliance with project requirements.
+No AI-generated code was directly copied without validation.
+---
 ### 🧭 How It All Connects
 ```
 LoginActivity → Dashboard → ExerciseActivity → WorkoutActivity
