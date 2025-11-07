@@ -77,4 +77,22 @@
     <string name="breakfast">Bogaufi</string>
     <string name="lunch">Dijo tsa motshegare</string>
     <string name="supper">Dijo tsa maitseboa</string>
+
+    <string name="no_exercises_found">Ga go a bonwa ditlhatlhobo tsa %1$s</string>
+    <string name="failed_load_exercises">Ga go a kgonega go laisa ditlhatlhobo: %1$d</string>
+    <string name="error_generic">Phoso: %1$s</string>
+
+    <string name="workout_saved">Thupelo e bolokilwe ✅</string>
+    <string name="workout_save_failed">Ga go a kgonega go boloka thupelo</string>
+
+    <string name="exercises">Ditlhatlhobo</string>
+
+    <string name="choose_your_workout">💪 Kgetha koetliso ya gago</string>
+
+    <!-- Exercise Detail -->
+    <string name="exercise_gif_desc">Setshwantsho sa Boikoetliso</string>
+    <string name="exercise_name_placeholder">Leina la Boikoetliso</string>
+    <string name="target_label_placeholder">Sepheo: Mokokotlo</string>
+    <string name="equipment_label_placeholder">Didiriswa: Dumbbell</string>
+    <string name="mark_completed">Tshwaya e feditswe</string>
 </resources>

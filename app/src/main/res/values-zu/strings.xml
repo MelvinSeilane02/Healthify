@@ -77,4 +77,22 @@
     <string name="breakfast">Isidlo sasekuseni</string>
     <string name="lunch">Isidlo sasemini</string>
     <string name="supper">Isidlo sakusihlwa</string>
+
+    <string name="no_exercises_found">Azikho izivivinywa ezitholakala ku-%1$s</string>
+    <string name="failed_load_exercises">Yehlulekile ukulayisha izivivinywa: %1$d</string>
+    <string name="error_generic">Iphutha: %1$s</string>
+
+    <string name="workout_saved">Ukuqeqesha kugcinwe ✅</string>
+    <string name="workout_save_failed">Kwehlulekile ukugcina ukuqeqesha</string>
+
+    <string name="exercises">Iziqeqesho</string>
+
+    <string name="choose_your_workout">💪 Khetha Ukuqeqesha Kwakho</string>
+
+    <!-- Exercise Detail -->
+    <string name="exercise_gif_desc">Isithombe sokuzivocavoca</string>
+    <string name="exercise_name_placeholder">Igama Lokuzivocavoca</string>
+    <string name="target_label_placeholder">Umgomo: Emuva</string>
+    <string name="equipment_label_placeholder">Imishini: Idumbile</string>
+    <string name="mark_completed">Phawula Njengokuphelile</string>
 </resources>

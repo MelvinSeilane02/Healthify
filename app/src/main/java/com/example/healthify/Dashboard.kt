@@ -7,8 +7,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import retrofit2.*
+import androidx.activity.enableEdgeToEdge
+import com.example.healthify.WorkoutActivity
+import com.example.healthify.mealplanner.AddMealActivity
 import com.example.healthify.mealplanner.MealPlannerActivity
 import com.example.healthify.methods.BaseActivity
 import retrofit2.Call
@@ -37,12 +43,6 @@ class Dashboard : BaseActivity() {
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Apply saved language at app start
-        /*val prefs = PrefsManager(applicationContext)
-        val lang = prefs.getLanguage()
-        LocaleHelper.applyLocale(applicationContext, lang)*/
-
         setContentView(R.layout.activity_dashboard)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -55,7 +55,7 @@ class Dashboard : BaseActivity() {
         progressCircle = findViewById(R.id.progressCircle)
         txtTotalTraining = findViewById(R.id.txtTotalTraining)
         txtGoal = findViewById(R.id.txtGoal)
-       // btnMealLogging = findViewById(R.id.btnMealLogging)
+        // btnMealLogging = findViewById(R.id.btnMealLogging)
 
         // Fetch live weather data
         fetchWeather(city)
@@ -79,6 +79,7 @@ class Dashboard : BaseActivity() {
         val weather: List<Weather>,
         val main: Main
     )
+
     data class Weather(val main: String)
     data class Main(val temp: Float)
 
@@ -92,7 +93,10 @@ class Dashboard : BaseActivity() {
         val call = service.getWeather(city, weatherApiKey)
 
         call.enqueue(object : Callback<WeatherResponse> {
-            override fun onResponse(call: Call<WeatherResponse>, response: Response<WeatherResponse>) {
+            override fun onResponse(
+                call: Call<WeatherResponse>,
+                response: Response<WeatherResponse>
+            ) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     val temp = data?.main?.temp?.toInt() ?: 0
@@ -132,7 +136,10 @@ class Dashboard : BaseActivity() {
         val call = service.getTrainingProgress()
 
         call.enqueue(object : Callback<TrainingResponse> {
-            override fun onResponse(call: Call<TrainingResponse>, response: Response<TrainingResponse>) {
+            override fun onResponse(
+                call: Call<TrainingResponse>,
+                response: Response<TrainingResponse>
+            ) {
                 if (response.isSuccessful) {
                     val progress = response.body()
                     if (progress != null) {
@@ -160,9 +167,13 @@ class Dashboard : BaseActivity() {
     }
 
     fun gotoWorkout(view: View) {
-        startActivity(Intent(this, WorkoutActivity::class.java))
-       // finish()
+        val intent = Intent(this, WorkoutActivity::class.java)
+        startActivityForResult(
+            intent,
+            1001
+        ) // Use this if you want to refresh progress when user returns
     }
+
 
     fun gotoSettings(view: View) {
         startActivity(Intent(this, SettingsActivity::class.java))
@@ -172,5 +183,14 @@ class Dashboard : BaseActivity() {
     fun gotoMealPlan(view: View) {
         startActivity(Intent(this, MealPlannerActivity::class.java))
         //finish()
+    }
+
+    // Refresh dashboard when returning from workout
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1001) {
+            fetchTrainingProgress() // Refresh progress after workout
+            Toast.makeText(this, "Progress updated ✅", Toast.LENGTH_SHORT).show()
+        }
     }
 }

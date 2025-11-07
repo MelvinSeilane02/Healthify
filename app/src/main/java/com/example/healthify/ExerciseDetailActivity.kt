@@ -1,45 +1,32 @@
 package com.example.healthify
 
 import android.os.Bundle
-import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.healthify.methods.BaseActivity
 
 class ExerciseDetailActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Apply saved language at app start
-        /*val prefs = PrefsManager(applicationContext)
-        val lang = prefs.getLanguage()
-        LocaleHelper.applyLocale(applicationContext, lang)*/
-
         setContentView(R.layout.activity_exercise_detail)
 
-        // Bind UI views
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        val nameText = findViewById<TextView>(R.id.exerciseName)
-        val typeText = findViewById<TextView>(R.id.exerciseType)
-        val difficultyText = findViewById<TextView>(R.id.exerciseDifficulty)
-        val instructionText = findViewById<TextView>(R.id.exerciseInstructions)
+        val name = intent.getStringExtra("name")
+        val gifUrl = intent.getStringExtra("gifUrl")
+        val target = intent.getStringExtra("target")
+        val equipment = intent.getStringExtra("equipment")
 
-        // Handle Back button
-        btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
+        val img = findViewById<ImageView>(R.id.imgDetail)
+        val txtName = findViewById<TextView>(R.id.txtDetailName)
+        val txtTarget = findViewById<TextView>(R.id.txtDetailTarget)
+        val txtEquipment = findViewById<TextView>(R.id.txtDetailEquipment)
 
-        // Retrieve exercise details from Intent
-        val name = intent.getStringExtra("exercise_name") ?: "Unknown Exercise"
-        val type = intent.getStringExtra("type")?.ifBlank { "Not specified" } ?: "Not specified"
-        val difficulty = intent.getStringExtra("difficulty")?.ifBlank { "N/A" } ?: "N/A"
-        val instructions = intent.getStringExtra("instructions")?.ifBlank { "No instructions available." }
-            ?: "No instructions available."
+        txtName.text = name
+        txtTarget.text = "Target: $target"
+        txtEquipment.text = "Equipment: $equipment"
 
-        // Display data
-        nameText.text = name
-        typeText.text = "Type: $type"
-        difficultyText.text = "Difficulty: $difficulty"
-        instructionText.text = instructions
+        Glide.with(this).asGif().load(gifUrl).into(img)
     }
 }

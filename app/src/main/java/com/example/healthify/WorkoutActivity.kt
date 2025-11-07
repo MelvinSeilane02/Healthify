@@ -1,141 +1,117 @@
 package com.example.healthify
 
-import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
-import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.healthify.adapters.ExerciseAdapter
+import com.example.healthify.api.ExerciseApiService
 import com.example.healthify.methods.BaseActivity
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
-import okhttp3.Call
-import okhttp3.Callback
+import com.example.healthify.models.Exercise
+import com.google.firebase.firestore.FirebaseFirestore
 import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import org.json.JSONArray
-import java.io.IOException
-
+import retrofit2.*
+import retrofit2.converter.gson.GsonConverterFactory
 
 class WorkoutActivity : BaseActivity() {
 
-    private lateinit var btnLoad: MaterialButton
-    private lateinit var container: LinearLayout
-    private val client = OkHttpClient()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var exerciseAdapter: ExerciseAdapter
+    private val exerciseList = mutableListOf<Exercise>()
+    private val db = FirebaseFirestore.getInstance()
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Apply saved language at app start
-        /*val prefs = PrefsManager(applicationContext)
-        val lang = prefs.getLanguage()
-        LocaleHelper.applyLocale(applicationContext, lang)*/
-
         setContentView(R.layout.activity_workout)
 
-        btnLoad = findViewById(R.id.btnSearch)
-        container = findViewById(R.id.workoutContainer)
-        val btnReturn = findViewById<ImageButton>(R.id.btnReturn)
-
-        btnReturn.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+        recyclerView = findViewById(R.id.recyclerViewExercises)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        exerciseAdapter = ExerciseAdapter(exerciseList) { exercise ->
+            markWorkoutComplete(exercise)
         }
+        recyclerView.adapter = exerciseAdapter
 
-        btnLoad.setOnClickListener {
-            container.removeAllViews()
-            val muscles = listOf("abs", "chest", "triceps")
-            muscles.forEach { loadExercises(it) }
-        }
+        // Fetch exercises for a specific body part
+        fetchExercisesByBodyPart("chest")
     }
 
-    private fun loadExercises(muscle: String) {
-        val url = "https://exercises-by-api-ninjas.p.rapidapi.com/v1/exercises?muscle=$muscle"
+    private fun fetchExercisesByBodyPart(bodyPart: String) {
+        val client = OkHttpClient.Builder().build()
 
-        val request = Request.Builder()
-            .url(url)
-            .get()
-            .addHeader("x-rapidapi-key", "3f7e508fadmsh959f9d383b10369p11ec0bjsnf6434848fca6")
-            .addHeader("x-rapidapi-host", "exercises-by-api-ninjas.p.rapidapi.com")
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://exercisedb.p.rapidapi.com/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                runOnUiThread {
-                    Toast.makeText(this@WorkoutActivity, "Failed to fetch exercises for $muscle", Toast.LENGTH_SHORT).show()
-                    Log.e("WorkoutActivity", "API call failed for $muscle", e)
+        val api = retrofit.create(ExerciseApiService::class.java)
+
+        val call = api.getExercisesByBodyPart(bodyPart)
+
+        call.enqueue(object : Callback<List<Exercise>> {
+            override fun onResponse(
+                call: Call<List<Exercise>>,
+                response: Response<List<Exercise>>
+            ) {
+                Log.d("WorkoutActivity", "Response code: ${response.code()} message: ${response.message()}")
+
+                if (response.isSuccessful) {
+                    val exercises = response.body() ?: emptyList()
+                    if (exercises.isNotEmpty()) {
+                        exerciseList.clear()
+                        exerciseList.addAll(exercises)
+                        exerciseAdapter.notifyDataSetChanged()
+
+                        // ✅ Log first few image URLs
+                        exercises.take(3).forEach {
+                            Log.d("ExerciseImage", "Image URL: ${it.gifUrl}")
+                        }
+                    } else {
+                        Toast.makeText(
+                            this@WorkoutActivity,
+                            "No exercises found for $bodyPart",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@WorkoutActivity,
+                        "Failed to load exercises: ${response.code()}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
-            override fun onResponse(call: Call, response: Response) {
-                val json = response.body?.string()
-                if (!response.isSuccessful || json.isNullOrEmpty()) {
-                    runOnUiThread {
-                        Toast.makeText(this@WorkoutActivity, "No exercises found for $muscle", Toast.LENGTH_SHORT).show()
-                    }
-                    return
-                }
-
-                try {
-                    val exercises = JSONArray(json)
-                    runOnUiThread { displayExercises(muscle, exercises) }
-                } catch (e: Exception) {
-                    Log.e("WorkoutActivity", "Invalid JSON for $muscle: $json", e)
-                    runOnUiThread {
-                        Toast.makeText(this@WorkoutActivity, "Invalid response for $muscle", Toast.LENGTH_SHORT).show()
-                    }
-                }
+            override fun onFailure(call: Call<List<Exercise>>, t: Throwable) {
+                Toast.makeText(
+                    this@WorkoutActivity,
+                    "Error: ${t.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
 
-    private fun displayExercises(muscle: String, exercises: JSONArray) {
-        // Add section header
-        val header = TextView(this).apply {
-            text = muscle.uppercase()
-            textSize = 20f
-            setTextColor(getColor(android.R.color.black))
-            setPadding(8, 24, 8, 12)
-        }
-        container.addView(header)
+    // --- Save Completed Workout ---
+    private fun markWorkoutComplete(exercise: Exercise) {
+        val workoutData = hashMapOf(
+            "userId" to "1234",
+            "exerciseName" to exercise.name,
+            "duration" to 15,
+            "timestamp" to System.currentTimeMillis()
+        )
 
-        // Create styled exercise cards
-        for (i in 0 until exercises.length()) {
-            val obj = exercises.getJSONObject(i)
-            val name = obj.getString("name")
-            val type = obj.optString("type", "N/A")
-            val difficulty = obj.optString("difficulty", "N/A")
-
-            val card = MaterialCardView(this).apply {
-                radius = 16f
-                cardElevation = 6f
-                setCardBackgroundColor(getColor(R.color.white))
-                layoutParams = ViewGroup.MarginLayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                ).apply { setMargins(0, 12, 0, 12) }
-
-                val btn = MaterialButton(this@WorkoutActivity).apply {
-                    text = "$name\n($difficulty • $type)"
-                    setTextColor(getColor(android.R.color.black))
-                    setBackgroundColor(getColor(R.color.blue))
-                    setOnClickListener {
-                        val intent = Intent(this@WorkoutActivity, ExerciseDetailActivity::class.java)
-                        intent.putExtra("exercise_name", name)
-                        intent.putExtra("type", type)
-                        intent.putExtra("difficulty", difficulty)
-                        intent.putExtra("instructions", obj.optString("instructions"))
-                        startActivity(intent)
-                    }
-                }
-
-                addView(btn)
+        db.collection("user_workouts")
+            .add(workoutData)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Workout saved ✅", Toast.LENGTH_SHORT).show()
+                setResult(Activity.RESULT_OK)
             }
-            container.addView(card)
-        }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to save workout", Toast.LENGTH_SHORT).show()
+            }
     }
 }
