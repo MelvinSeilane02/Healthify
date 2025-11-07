@@ -1,0 +1,57 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up JDK for Gradle
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      # Ensure gradlew is executable
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # 🧱 Build project (assembleDebug + check)
+      - name: Build with Gradle
+        run: ./gradlew build --stacktrace
+
+      # 🧪 Run Unit Tests
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest --stacktrace
+
+      # 🧩 (Optional) Run Android Instrumented Tests on emulator
+      # Uncomment below if you have connectedAndroidTest
+      # - name: Run Instrumented Tests
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 30
+      #     target: google_apis
+      #     arch: x86_64
+      #     script: ./gradlew connectedDebugAndroidTest
+
+      # 📦 Upload build reports (optional but helpful for debugging)
+      - name: Upload Test Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: |
+            app/build/reports/
+            app/build/test-results/
