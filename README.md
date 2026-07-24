@@ -1,331 +1,260 @@
-# 🥗 Healthify – Smart Meal & Fitness Tracker
+#  Healthify – Smart Meal & Fitness Tracker
 
-Healthify is an Android application built to help users manage their **nutrition, exercise, and wellness goals** — combining **meal tracking**, **daily calorie goals**, and **fitness activity monitoring** into one intuitive interface.
+Healthify is an Android application developed as a collaborative Software Development project by Thabiso Shaun Charles Makhobo and Kamogelo Melvin Seilane. The application was created to address two important aspects of healthy living that are often overlooked when separated—nutrition management and physical wellness.
+
+Many people struggle to maintain healthy lifestyles because they do not have a simple way to monitor both their eating habits and fitness activities in one place. Healthify was designed to solve this problem by combining meal planning, calorie tracking, exercise monitoring, and personalized wellness features into a single mobile application.
+
+Rather than simply counting calories or recording workouts, Healthify provides users with meaningful insights that encourage healthier decision-making and long-term wellness habits.
 
 ---
 
-## 🚀 Features
-- 🔐 Firebase Authentication – Secure login and registration system with password encryption.
-- ☁️ Firestore Integration – Stores user settings, meals, and fitness data.
-- 🍱 Meal Planner – Add, view, and manage meals with calorie and macro breakdown.
-- 🧠 Nutritionix API Integration – Fetch accurate nutrition data from a trusted global database.
-- 🎯 Daily Calorie Goal Tracking – Compare intake vs. your personalized goal.
-- 💪 Exercise & Workout Tracking – Monitor workout sessions and track progress.
-- 🌦 Weather Integration – Get real-time weather for outdoor training (OpenWeather API).
-- 🌓 Theme Switching – Toggle between light and dark mode.
-- 🌍 Language Preferences – Supports English, Zulu, and Setswana.
-- 🔄 Offline Storage (Planned) – RoomDB caching for meals and workouts.
-- 🧩 Firestore Sync – User data synchronized across devices.
-- 🔔 Notifications (Planned) – Push notifications via Firebase Cloud Messaging.
----
-## 🎨 Design Considerations
+##  Why This Project Exists
 
-- User-Centered UI: Designed for clarity, accessibility, and smooth navigation.
-- Color Palette: Green tones for wellness, dark mode for battery efficiency.
-- Typography: Sans-serif fonts for readability.
-- Layout: Bottom navigation bar for primary sections (Meals, Fitness, Profile).
-- Responsiveness: Fully optimized for different screen sizes.
-- Error Handling: All forms validate inputs to prevent crashes.
-- Multi-language support: Strings.xml configured for three languages.
----
-## 🧱 Technologies Used
+Healthify was developed to help users:
 
-- Kotlin
-- Firebase Authentication & Firestore
-- Retrofit + Gson + OkHttp
-- Nutritionix & OpenWeather APIs
-- RoomDB (Planned for Offline Mode)
-- Material Design Components
-- JUnit & Mockito (Unit Testing)
-- GitHub Actions (Automated Build & Test)
-- MPAndroidChart (Planned for Visualization)
----
-## ⚙️ Setup & Installation
+* Monitor their daily calorie intake.
+* Plan and track meals using accurate nutritional information.
+* Track exercise sessions and fitness goals.
+* View weather conditions before outdoor training activities.
+* Personalize their experience through theme and language preferences.
+* Improve their overall health by making informed lifestyle choices.
 
-### 1. Clone the repository
+The project demonstrates the practical application of Android development, API integration, cloud databases, authentication systems, and collaborative software engineering practices.
+
+---
+
+##  Collaboration & Teamwork
+
+Healthify was developed collaboratively by:
+
+* **Thabiso Shaun Charles Makhobo**
+* **Kamogelo Melvin Seilane**
+
+Throughout the project, we worked closely together to design, develop, test, and document the application while maintaining a modular development approach.
+
+### Project Responsibilities
+
+#### Thabiso Shaun Charles Makhobo
+
+Responsible for:
+
+* Exercise and Workout Tracking Module.
+* OpenWeather API integration.
+* Exercise progress calculations and visualizations.
+* Weather-based fitness functionality.
+* Exercise user interface implementation.
+* Fitness goal tracking logic.
+* Firebase integration for future exercise session storage.
+
+#### Kamogelo Melvin Seilane
+
+Responsible for:
+
+* Meal Planning Module.
+* Nutritionix API integration.
+* Meal tracking and calorie calculations.
+* Firestore meal data management.
+* Daily calorie goal functionality.
+* Nutrition-related user interfaces and logic.
+
+Working collaboratively allowed us to integrate both modules seamlessly while gaining valuable experience in teamwork, problem-solving, and software engineering principles.
+
+---
+
+##  Features
+
+* Secure Firebase Authentication.
+* Firestore database integration.
+* Smart Meal Planning.
+* Daily calorie goal tracking.
+* Exercise and workout monitoring.
+* Real-time weather information for outdoor training.
+* Light and Dark mode support.
+* Multi-language functionality.
+* Firestore synchronization.
+* Offline storage support (planned).
+* Push notification support (planned).
+
+---
+
+##  Meal Planning Features
+
+* Search meals using Nutritionix.
+* View calories and nutritional information.
+* Track daily food consumption.
+* Compare calorie intake against personalized goals.
+* Store meal history securely using Firestore.
+* Future offline meal caching support.
+
+---
+
+##  Exercise Features
+
+* Track workout sessions and exercise goals.
+* Monitor total training time.
+* View progress indicators for daily goals.
+* Display real-time weather information for outdoor activities.
+* Personalized exercise summaries.
+* Future workout synchronization support.
+
+---
+
+##  API Integration
+
+Healthify utilizes two external APIs to provide intelligent and real-time functionality.
+
+### Nutritionix API
+
+Responsible for:
+
+* Meal searches.
+* Calorie calculations.
+* Nutritional information.
+* Macronutrient breakdown.
+
+This API powers the Meal Planning module developed by Kamogelo Melvin Seilane.
+
+### OpenWeather API
+
+Responsible for:
+
+* Real-time weather information.
+* Outdoor exercise planning.
+* Temperature and weather condition updates.
+
+This API powers the Exercise module developed by Thabiso Shaun Charles Makhobo.
+
+Both APIs significantly enhance the user experience by providing reliable and dynamic information.
+
+---
+
+##  API Keys & Security
+
+Healthify makes use of API keys to communicate securely with third-party services.
+
+Sensitive information such as:
+
+* Nutritionix API credentials.
+* OpenWeather API credentials.
+* Firebase configuration details.
+* Environment-specific secrets.
+
+are intentionally excluded from the public repository.
+
+Developers wishing to run this project locally must configure their own API credentials before building the application.
+
+No sensitive credentials should be committed to GitHub repositories.
+
+---
+
+##  Technologies Used
+
+* Kotlin
+* Android Studio
+* Firebase Authentication
+* Firebase Firestore
+* Retrofit
+* Gson
+* OkHttp
+* Nutritionix API
+* OpenWeather API
+* Material Design Components
+* Room Database (Planned)
+* GitHub Actions
+* JUnit
+* Mockito
+* Git & GitHub
+
+---
+
+## ⚙️ Installation
+
+1. Clone the repository:
+
 ```bash
-git clone [https://github.com/MelvinSeilane02/Healthify.git)
+git clone https://github.com/MelvinSeilane02/Healthify.git
 ```
 
-### 2. Add your own API keys
-You’ll need to configure your **Nutritionix** and **OpenWeather** API keys.
+2. Configure Firebase services.
 
-Create a local `gradle-wrapper.properties` file inside your project root and add:
-```properties
-# Local API Keys
-NUTRITIONIX_APP_ID=f5d73b4b
-NUTRITIONIX_APP_KEY=031e9e6bc34302c050c343c01cea5ea7
-OPENWEATHER_API_KEY=your_openweather_api_key_here
-```
+3. Add your own API credentials for:
 
-### 3. Configure build.gradle.kts
-In your module’s `build.gradle.kts`, define your API keys:
-```kotlin
-// Nutritionix API
-val nutritionixAppId = "f5d73b4b"
-val nutritionixAppKey = "031e9e6bc34302c050c343c01cea5ea7"
+* Nutritionix API
+* OpenWeather API
 
-// Add to BuildConfig for safe access in code
-buildConfigField("String", "NUTRITIONIX_APP_ID", "\"$nutritionixAppId\"")
-buildConfigField("String", "NUTRITIONIX_APP_KEY", "\"$nutritionixAppKey\"")
-buildConfigField("String", "OPENWEATHER_API_KEY", "\"your_openweather_api_key_here\"")
-```
+4. Sync Gradle dependencies.
+
+5. Build and run the application using Android Studio.
 
 ---
 
-## 🍽️ Meal Planning Module
+##  Future Improvements
 
-### 🎯 Purpose
-Enable users to:
-- Search for meals via **Nutritionix API**.
-- View nutrition breakdown (calories, macros).
-- Track and store meals in **Firestore**.
-- Compare consumption to daily calorie goal.
+Planned improvements include:
 
-### 🔍 Firestore Structure
-```
-users/
- └── userId/
-      ├── profile/
-      ├── settings/
-      └── meals/
-           ├── 2025-10-06-meal1
-           ├── 2025-10-06-meal2
-```
-
-### 💡 Example Retrofit Call
-```kotlin
-@POST("v2/natural/nutrients")
-fun getNutritionData(
-    @Header("x-app-id") appId: String,
-    @Header("x-app-key") apiKey: String,
-    @Body request: NutritionRequest
-): Call<FoodResponse>
-```
-
-### 🧠 MealPlannerActivity
-- Displays today’s meals and calories consumed.
-- Shows progress bar vs. daily goal.
-- Uses RecyclerView to render meals.
-- Integrates Firestore for persistence.
+* Google Fit integration.
+* Offline synchronization using RoomDB.
+* Advanced fitness analytics.
+* Push notifications using Firebase Cloud Messaging.
+* Enhanced workout visualizations.
+* Monthly wellness reports.
+* Additional multilingual support.
+* Improved graphical data representations.
 
 ---
 
-## 💪 Exercise Feature — Overview
+##  Testing & CI/CD
 
-### 🎯 Purpose
-The **Exercise module** helps users:
-- View their workout or exercise sessions.
-- Track total training time vs. goal time.
-- View weather data to plan outdoor activities.
-- (Planned) Log new workouts or sync with Google Fit.
+Healthify utilizes:
 
-It merges real-time **OpenWeather API** data with personalized fitness tracking.
+* JUnit Testing
+* Mockito
+* GitHub Actions
 
----
+Automated workflows are configured to:
 
-### ⚙ Main Components
-
-#### 🧩 1. ExerciseActivity.kt & WorkoutActivity.kt
-These serve as the **Exercise Dashboard** and **Workout Detail** screens.
-
-**Core Responsibilities**
-- Show daily/weekly summaries.
-- Fetch and display weather (OpenWeather API).
-- Visualize progress toward exercise goals.
-- Navigate between screens via buttons or FABs.
-
-**Example Weather Service**
-```kotlin
-interface WeatherService {
-    @GET("data/2.5/weather")
-    fun getWeather(
-        @Query("q") city: String,
-        @Query("appid") apiKey: String,
-        @Query("units") units: String = "metric"
-    ): Call<WeatherResponse>
-}
-```
-
-**Example Usage**
-```kotlin
-🌤 Pretoria 25° | Clear
-```
-
-**Navigation**
-```kotlin
-fun gotoWorkout(view: View) {
-    startActivity(Intent(this, WorkoutActivity::class.java))
-    finish()
-}
-```
+* Build the Android project.
+* Run unit tests.
+* Verify project integrity across environments.
 
 ---
 
-#### 🌤 2. OpenWeather API Integration
+##  AI Tools Utilized
 
-Configured with Retrofit + GsonConverterFactory.
+AI tools such as ChatGPT (OpenAI) were utilized during development to assist with:
 
-**Base URL:**
-```
-https://api.openweathermap.org/
-```
+* Kotlin debugging.
+* API integration guidance.
+* Technical documentation.
+* Firestore database design suggestions.
+* Localization setup.
+* Software engineering best practices.
 
-Stored constants:
-```kotlin
-private val apiKey = BuildConfig.OPENWEATHER_API_KEY
-private val city = "Pretoria"
-```
+All AI-generated suggestions were reviewed, modified, tested, and validated before implementation. No code was included without developer verification and customization.
 
 ---
 
-#### 🧮 3. Workout Progress Tracking
+##  Demonstration
 
-**Logic Example**
-```kotlin
-val progressPercent = ((totalMinutes.toFloat() / goalMinutes) * 100)
-    .toInt().coerceAtMost(100)
-progressCircle.progress = progressPercent
-```
+Healthify Prototype:
 
-Displays:
-- Total Training Time  
-- Goal Time  
-- Circular Progress Indicator  
+https://youtu.be/RipgBzHuHmc
 
 ---
 
-#### 📱 4. UI Files
-`activity_exercise.xml` & `activity_workout.xml`
+##  Credits
 
-Include:
-- ProgressBar (circular)
-- TextView (total + goal)
-- Button (start new workout)
-- Weather text (txtWeather)
+Developed by:
 
-Styled with:
-- Rounded corners
-- Gradients
-- Material Components
+* **Thabiso Shaun Charles Makhobo**
+* **Kamogelo Melvin Seilane**
+
+*Rosebank College – Diploma in Information Technology (Software Development) Project*
+
+Healthify reflects not only our technical abilities as software developers but also our ability to collaborate effectively on a modular software solution. The project demonstrates practical experience in Android development, API integration, cloud databases, authentication systems, and collaborative problem-solving while addressing real-world health and wellness challenges.
 
 ---
 
-#### 🧠 5. API Prefix Handling
-Consistent structure for scalability:
-```kotlin
-@GET("api/data/2.5/weather")
-```
+##  License
 
----
-## 🔬 GitHub Actions (Automated Testing & Build)
-
-- GitHub workflow located at:
-.github/workflows/build.yml
-
-This workflow:
-
-- Builds the Android project automatically
-- Runs JUnit tests
-- Ensures code compiles successfully across environments
----
-
-#### 🧪 6. Unit Testing Setup
-Configured **Mockito + JUnit**:
-```kotlin
-testImplementation("junit:junit:4.13.2")
-testImplementation("org.mockito:mockito-core:5.4.0")
-testImplementation("org.mockito:mockito-inline:5.4.0")
-```
-
-Includes `LoginRepositoryTest`, with plans for:
-- Weather API mocks
-- Progress calculations
-
----
-
-#### 🔐 7. Firebase Integration
-While Firebase Auth handles login/register, Exercise modules integrate user identity for:
-- Future **exercise session storage**.
-- Personalized workout summaries.
-
----
-
-#### 💾 8. Gradle Configuration
-Supports:
-- Firebase Auth + Firestore  
-- Retrofit, Gson, OkHttp  
-- JUnit & Mockito  
-- Material Components  
-- ViewBinding & DataBinding  
-- Secure API key handling via `buildConfigField`
-
----
-## 🧾 Release Notes
-###Version 1.0 – Prototype
-- Firebase Authentication
-- Nutritionix API for meal data
-- Firestore integration for user meals
-- OpenWeather API setup for weather display
-- Exercise tracking with progress visualization
-
-### Version 2.0 – Final POE
-- Added multi-language support (Zulu + Setswana)
-- Added light/dark mode toggle
-- Implemented GitHub Actions CI/CD pipeline
-- Improved Firestore data structure
-- Enhanced UI with Material Components
-- Prepared offline caching (RoomDB structure)
-- Added Release Notes & ReadMe Documentation
-- Integrated signed APK and Play Console preparation
----
-## 🤖 AI Tools Utilized (≤500 words)
-
-AI tools such as ChatGPT (OpenAI) were used during the development of Healthify to:
-- Debug Kotlin syntax and logic errors in API calls.
-- Generate Retrofit integration templates.
-- Create documentation and technical explanations.
-- Suggest database structure best practices for Firestore.
-- Assist with the localization setup and translation placeholders.
-- Format README and write professional-level documentation.
-
-All code suggestions from AI were verified, customized, and tested by the developers before implementation to ensure reliability, accuracy, and compliance with project requirements.
-No AI-generated code was directly copied without validation.
----
-### 🧭 How It All Connects
-```
-LoginActivity → Dashboard → ExerciseActivity → WorkoutActivity
-                        ↓
-               OpenWeather API
-                        ↓
-              Progress Tracking (UI + Logic)
-```
-
-The **Exercise module** is modular, scalable, and seamlessly integrated with your overall Healthify ecosystem.
-
----
-
-## 🧑‍💻 Credits
-
-**Developed by:**  
-Kamogelo Seilane & Shaun Makhobo  
-🎓 *Rosebank College – Software Development Project*
-
-**Technologies Used:**  
-- Kotlin  
-- Firebase Auth & Firestore  
-- Retrofit & Gson  
-- Nutritionix & OpenWeather APIs  
-- Material Design Components  
-- MPAndroidChart (planned)
-
----
-## 📹Youtube Video
-```
-Healthify Prototype : [https://youtu.be/RipgBzHuHmc)
-```
-
----
-## 📚 License
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
-
+This project is licensed under the MIT License. See the LICENSE file for additional information.
